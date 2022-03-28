@@ -1,20 +1,17 @@
 
 import React, { Component } from 'react'
-
-export class Home extends Component {
+export class BloodBankAvailability extends Component {
     fun=()=> {
         console.log("fun called");
     }
   render() {
-   
-    
     return (
       <div>
-      Home Page
+      BloodBankAvailability Page
         
       </div>
     )
   }
 }
 
-export default Home
+export default BloodBankAvailability

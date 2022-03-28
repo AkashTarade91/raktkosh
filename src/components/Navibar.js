@@ -4,7 +4,7 @@ export const Navibar = ()=>{
     return(
         
          <div>
-            <Navbar bg="light" expand="lg">
+            <Navbar bg="dark" variant="dark" expand="lg">
                <Container>
                   <Navbar.Brand href="/">RaktKosh</Navbar.Brand>
                   <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -13,9 +13,9 @@ export const Navibar = ()=>{
                      <Nav.Link href="/">Home</Nav.Link>
                      <Nav.Link href="/about">About</Nav.Link>
                      <NavDropdown title="Looking for Blood" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Blood Availability</NavDropdown.Item>
+                        <NavDropdown.Item href="/bloodAvailablitity">Blood Availability</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.2">Nearby Blood Bank</NavDropdown.Item>
+                        <NavDropdown.Item href="/bloodBankAvailablitity">Nearby Blood Bank</NavDropdown.Item>
                         
                      </NavDropdown>
                      <NavDropdown title="Want to Donate" id="basic-nav-dropdown">
