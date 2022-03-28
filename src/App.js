@@ -7,6 +7,10 @@ import { Navibar } from './components/Navibar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BloodAvailability from './components/BloodAvailability';
 import BloodBankAvailability from './components/BloodBankAvailability';
+import DonorLogin from './components/donor/DonorLogin';
+import DonorRegister from './components/donor/DonorRegister';
+import Login from './components/bank/Login';
+import Register from './components/bank/Resgister';
 
 function App() {
   return (
@@ -17,6 +21,12 @@ function App() {
       <Route path='/about' element={<About/>}></Route>
       <Route path='/bloodAvailablitity' element={<BloodAvailability />}></Route>
       <Route path='/bloodBankAvailablitity' element={<BloodBankAvailability/>}></Route>
+      
+      <Route path='/donar/login' element={<DonorLogin/>}></Route>
+      <Route path='/donar/register' element={<DonorRegister/>}></Route>
+
+      <Route path='/bank/login' element={<Login/>}></Route>
+      <Route path='/bank/register' element={<Register/>}></Route>
     </Routes>
     </>
     

@@ -23,15 +23,15 @@ export const Navibar = ()=>{
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#action/3.2">Appointment for Blood Bank</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.2">Donor Login</NavDropdown.Item>
+                        <NavDropdown.Item href="/donar/login">Donor Login</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#action/3.2">About Blood Donation</NavDropdown.Item>
                      </NavDropdown>
 
                      <NavDropdown title="Blood Bank Login" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Raktkosh Login</NavDropdown.Item>
+                        <NavDropdown.Item href="/bank/login">Raktkosh Login</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.2">Add Your Bloodbank</NavDropdown.Item>
+                        <NavDropdown.Item href="/bank/register">Add Your Bloodbank</NavDropdown.Item>
                         
                      </NavDropdown>
                      </Nav>
