@@ -1,0 +1,29 @@
+.container{
+    
+    margin-top: 1vh;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+.img{
+    height: 70vh;
+     width: 100%;
+}
+.h1
+{
+    font-size: 2vh;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.centered {
+    font-weight: bold;
+    font-size: 7vh;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  
