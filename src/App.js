@@ -11,27 +11,62 @@ import DonorLogin from './components/donor/DonorLogin';
 import DonorRegister from './components/donor/DonorRegister';
 import Login from './components/bank/Login';
 import Register from './components/bank/Resgister';
+import axios from 'axios';
+import React, { Component } from 'react'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import UserForm from './UserForm';
 
-function App() {
-  return (
-    <>
-    <Navibar/>
-    <Routes>
-      <Route path='/' element={<Home/>}></Route>
-      <Route path='/about' element={<About/>}></Route>
-      <Route path='/bloodAvailablitity' element={<BloodAvailability />}></Route>
-      <Route path='/bloodBankAvailablitity' element={<BloodBankAvailability/>}></Route>
-      
-      <Route path='/donar/login' element={<DonorLogin/>}></Route>
-      <Route path='/donar/register' element={<DonorRegister/>}></Route>
+class App extends Component {
+  
 
-      <Route path='/bank/login' element={<Login/>}></Route>
-      <Route path='/bank/register' element={<Register/>}></Route>
-    </Routes>
-    </>
-    
-   
-  );
+
+  render() {
+  
+    return (
+      <>
+      <Navibar/>
+     
+      {
+        
+      }
+      <Routes>
+        <Route path='/' element={<Home/>}></Route>
+        <Route path='/about' element={<About/>}></Route>
+        <Route path='/bloodAvailablitity' element={<BloodAvailability />}></Route>
+        <Route path='/bloodBankAvailablitity' element={<BloodBankAvailability/>}></Route>
+        
+        <Route path='/donar/login' element={<DonorLogin/>}></Route>
+        <Route path='/donar/register' element={<DonorRegister/>}></Route>
+  
+        <Route path='/bank/login' element={<Login/>}></Route>
+        <Route path='/bank/register' element={<Register/>}></Route>
+      </Routes>
+      </>
+    )
+  }
 }
 
-export default App;
+export default App
+// function App() {
+//   return (
+//     <>
+//     <Navibar/>
+//     <Routes>
+//       <Route path='/' element={<Home/>}></Route>
+//       <Route path='/about' element={<About/>}></Route>
+//       <Route path='/bloodAvailablitity' element={<BloodAvailability />}></Route>
+//       <Route path='/bloodBankAvailablitity' element={<BloodBankAvailability/>}></Route>
+      
+//       <Route path='/donar/login' element={<DonorLogin/>}></Route>
+//       <Route path='/donar/register' element={<DonorRegister/>}></Route>
+
+//       <Route path='/bank/login' element={<Login/>}></Route>
+//       <Route path='/bank/register' element={<Register/>}></Route>
+//     </Routes>
+//     </>
+    
+   
+//   );
+// }
+
+// export default App;
