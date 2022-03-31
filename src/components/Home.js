@@ -6,6 +6,7 @@ import "./css/home.css";
 import "./css/table.css";
 
 import img2 from"../images/blood.PNG";
+import Login from './Login';
 
 export class Home extends Component {
     fun=()=> {
@@ -156,7 +157,7 @@ export class Home extends Component {
     
    
    
-
+         <Login></Login> 
          </>
       
     )

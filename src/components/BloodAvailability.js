@@ -73,7 +73,7 @@ class BloodAvailability extends Component {
 
     return (
       <div>
-        <div className="container bg-secondary text-white text-center">
+        <div className="container bg-dark text-white text-center">
           <div className="row">
             <div className="col ">
 

@@ -10,7 +10,7 @@ class DonorLogin extends Component {
             <div className="col">
 
             </div>
-            <div className="p-3 m-2 bg-secondary text-white col-5">
+            <div className="p-3 m-2 bg-dark text-white col-5">
                 <Form>
                     <h1>Donor Login</h1><br />
                     <Form.Group className="mb-3" controlId="formBasicEmail">
