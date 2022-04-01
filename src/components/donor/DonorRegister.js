@@ -209,7 +209,7 @@ class DonorRegister extends Component {
         const newErrors = {};
         console.log(event.target.value);
         const  gender = event.target.value;
-        this.genderValidation(newErrors,event.target.value)
+        this.genderValidation(newErrors, gender)
         
       }
 
@@ -245,17 +245,13 @@ class DonorRegister extends Component {
 
       emailValidation=(newErrors,email)=>{
         let flag=true;
-        let pattern="/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/";
-        
         
         if ( email === '' ) {
           newErrors.email = ' Cannot be blank!'
           flag=false;
         }
         else{
-          
-          //if (  !(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) ) {
-            if(!(validator.isEmail(email))){
+           if(!(validator.isEmail(email))){
             newErrors.email = ' Invalid Email !'
             flag=false;
           }
@@ -353,7 +349,7 @@ class DonorRegister extends Component {
         
         const newErrors = {};
         const districtId=e.target.value;
-        this.districtValidation(newErrors,e.target.value)
+        this.districtValidation(newErrors, districtId)
         //http://localhost:8080/commondata/cities/39
         
       }
@@ -622,12 +618,35 @@ class DonorRegister extends Component {
         //event.preventDefault();
         
         console.log(newErrors);
+        console.log(this.state);
         if ( Object.keys(newErrors).length > 0 ) {
         // We got errors!
         event.preventDefault();
         this.setState({
             errors: newErrors
         })
+      }
+      else{
+        event.preventDefault();
+        //AddDonorDonor(firstName=null, lastName=null, birthDate=null, gender=null, email=null, stateId=0, districtId=0, cityId=0, mobile=0, password=null, confirmPassword=null)
+        const  { firstName, lastName, birthDate, gender, email, stateId, districtId, cityId, mobile, password, confirmPassword } = this.state;
+        console.log(cityId);
+        const city={
+          "id":cityId
+        }
+        const donor = { firstName, lastName, birthDate, gender, email, city, mobile, password }
+        console.log(donor);
+         axios.post('http://localhost:8080/donor/register', donor)
+              .then(response=>{
+               console.log("componentDidMount");
+              console.log(response);
+              //this.setState({citiesdata:response.data})
+              console.log(response.data);
+              })
+              .catch(error=>{
+                 console.log(error);
+              })
+
       }
     }
 
@@ -733,13 +752,10 @@ class DonorRegister extends Component {
         
         
         const {
-          firstName, isValidFirstName, lastName, isValidLastName ,birthDate, isValidBirthDate, gender, isValidGender ,
-          email, isValidEmail, stateId, isValidStateId, districtId, isValidDistrictId, cityId, isValidCitytId,
-          mobile, isValidMoblie, isValidPassword, isValidConfirmPassword, password, confirmPassword,
-          statesdata, districtsdata, citiesdata, errors, succ, validated} =this.state;
-        console.log(districtsdata);
-        console.log(errors);
-        console.log(firstName);
+           isValidFirstName,  isValidLastName , isValidBirthDate,  isValidGender ,
+           isValidEmail, isValidStateId, isValidDistrictId, isValidCitytId,
+           isValidMoblie, isValidPassword, isValidConfirmPassword, 
+          statesdata, districtsdata, citiesdata, errors} =this.state;
         let statesList = statesdata.length > 0
             && statesdata.map((item, i) => {
             return (
@@ -817,9 +833,9 @@ class DonorRegister extends Component {
                     <Form.Select className="col"  name="gender" onChange={this.genderHandler}
                       isValid={ isValidGender } isInvalid={ !!errors.gender } required>
                         <option value="-1"  hidden>Choose Value</option>
-                        <option value="female">Female</option>
-                        <option value="male">Male </option>
-                        <option value="transgender">Transgender</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="MALE">Male </option>
+                        <option value="TRANSGENDER">Transgender</option>
                         
                     </Form.Select>
                     <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback> 
@@ -914,7 +930,7 @@ class DonorRegister extends Component {
                 <div className="col-md-8 m-2">
                     <Button variant="primary" type="submit" >Register </Button>
 
-                    <Link to="/donar/login">
+                    <Link to="/donor/login">
                         <Button className="m-4" variant="danger">Already Registered ?</Button>
                     </Link> 
                 </div>

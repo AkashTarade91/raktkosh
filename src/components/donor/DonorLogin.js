@@ -26,7 +26,7 @@ class DonorLogin extends Component {
                         Login
                     </Button>
                     
-                    <Link to="/donar/register">
+                    <Link to="/donor/register">
                         <Button className="m-4" variant="danger">Not Registered ?</Button>
                     </Link>
                 </Form>
