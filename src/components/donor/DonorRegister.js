@@ -83,7 +83,7 @@ class DonorRegister extends Component {
           flag=false;
         }
         else{
-          if ( !(firstName.length>3 &&  firstName.length<15) ) {
+          if ( !(firstName.length>=3 &&  firstName.length<15) ) {
             newErrors.firstName = 'Length must be between 3 and 15 character !'
             flag=false;
           }
@@ -127,7 +127,7 @@ class DonorRegister extends Component {
         flag=false;
       }
       else{
-        if ( !(lastName.length>3 &&  lastName.length<15) ) {
+        if ( !(lastName.length>=3 &&  lastName.length<15) ) {
           newErrors.lastName = 'Length must be between 3 and 15 character !'
           flag=false;
         }
