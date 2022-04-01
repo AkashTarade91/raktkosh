@@ -32,8 +32,8 @@ class App extends Component {
         <Route path='/bloodAvailablitity' element={<BloodAvailability />}></Route>
         <Route path='/bloodBankAvailablitity' element={<BloodBankAvailability/>}></Route>
         
-        <Route path='/donar/login' element={<DonorLogin/>}></Route>
-        <Route path='/donar/register' element={<DonorRegister/>}></Route>
+        <Route path='/donor/login' element={<DonorLogin/>}></Route>
+        <Route path='/donor/register' element={<DonorRegister/>}></Route>
   
         <Route path='/bank/login' element={<Login/>}></Route>
         <Route path='/bank/register' element={<Register/>}></Route>
