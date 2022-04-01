@@ -19,7 +19,7 @@ class BloodAvailability extends Component {
 
   componentDidMount() {
     if (this.state.statesdata.length === 0) {
-      axios.get('http://localhost:8080/api')
+      axios.get('http://localhost:8080/commondata/statesAndDistrict')
         .then(response => {
           console.log("componentDidMount");
           console.log(response.data);

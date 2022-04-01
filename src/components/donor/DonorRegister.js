@@ -304,11 +304,25 @@ class DonorRegister extends Component {
         }
         else{
           if(stateId>=0){
-            this.setState({districtsdata:this.state.statesdata[stateId-1].districts});
-            console.log(this.state.districtsdata);
+            // this.setState({districtsdata:this.state.statesdata[stateId-1].districts});
+            // console.log(this.state.districtsdata);
+              axios.get('http://localhost:8080/commondata/districts/'+stateId)
+              .then(response=>{
+              console.log("componentDidMount");
+              console.log(response.data);
+              this.setState({districtsdata:response.data})
+              console.log(this.state.districtsdata);
+              })
+              .catch(error=>{
+                  console.log(error);
+              })
+
+
+
+
+
           }
           else{
-            this.setState({districtsdata:[]});
             newErrors.stateId = ' Cannot be blank!'
             flag=false;
           }
@@ -605,9 +619,9 @@ class DonorRegister extends Component {
       })
         console.log(event);
         const newErrors=this.findFormErrors()
-        event.preventDefault();
+        //event.preventDefault();
         
-        
+        console.log(newErrors);
         if ( Object.keys(newErrors).length > 0 ) {
         // We got errors!
         event.preventDefault();
