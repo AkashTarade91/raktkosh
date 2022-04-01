@@ -9,7 +9,7 @@ import BloodBankAvailability from './components/BloodBankAvailability';
 import DonorLogin from './components/donor/DonorLogin';
 import DonorRegister from './components/donor/DonorRegister';
 import Login from './components/bank/Login';
-import Register from './components/bank/Resgister';
+import Register from './components/bank/Register';
 import React, { Component } from 'react'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
