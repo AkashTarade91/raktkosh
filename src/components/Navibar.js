@@ -22,7 +22,7 @@ export const Navibar = ()=>{
                      <NavDropdown title="Want to Donate" id="basic-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Blood Donation Camps</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.2">Appointment for Blood Bank</NavDropdown.Item>
+                        <NavDropdown.Item href="/donor/donorAppointment">Appointment for Blood Bank</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="/donor/login">Donor Login</NavDropdown.Item>
                         <NavDropdown.Divider />
