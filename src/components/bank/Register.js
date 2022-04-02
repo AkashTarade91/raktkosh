@@ -13,9 +13,9 @@ class Register extends Component {
       statesdata: [],
       districtsdata: [],
       citiesdata: [],
-      BBName: '',
+      bankName:'',
       isValidBBName: '',
-      PHName: '',
+      parentHospital:'',
       isValidPHName: '',
       shortName: '',
       isValidShortName: '',
@@ -23,12 +23,14 @@ class Register extends Component {
       isValidCategory: '',
       licence: '',
       isValidLicence:'',
-      CPName : '',
+      personName : '',
       isValidCPName:'',
       email: '',
       isValidEmail: '',
       contact: '',
       isValidContact: '',
+
+
       stateId: '',
       isValidStatetId: '',
       districtId: '',
@@ -47,66 +49,62 @@ class Register extends Component {
       confirmPassword: '',
       isValidConfirmPassword: '',
       errors: {
-      },
-      succ: {
       }
     };
 
-    this.changeHandler = this.changeHandler.bind(this);
+
+    this.bankNameHandler=this.bankNameHandler.bind(this);
+    this.parentHospitalNameHandler=this.parentHospitalNameHandler.bind(this);
+    this.shortNameHandler=this.shortNameHandler.bind(this);
+    this.categoryHandler=this.categoryHandler.bind(this);
+    this.licenceHandler=this.licenceHandler.bind(this);
+    this.personNameHandler=this.personNameHandler.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.nameHandler = this.nameHandler.bind(this);
-    this.lastNameHandler = this.lastNameHandler.bind(this);
-    this.birthDateHandler = this.birthDateHandler.bind(this);
-    this.genderHandler = this.genderHandler.bind(this);
     this.emailHandler = this.emailHandler.bind(this);
     this.stateHandler = this.stateHandler.bind(this);
     this.districtHandler = this.districtHandler.bind(this);
     this.cityHandler = this.cityHandler.bind(this);
+    this.compFacilityHandler=this.compFacilityHandler.bind(this);
     this.mobileHandler = this.mobileHandler.bind(this);
     this.passwordHandler = this.passwordHandler.bind(this);
     this.confirmPasswordHandler = this.confirmPasswordHandler.bind(this);
   }
 
-  changeHandler = event => {
-    console.log(event.target.value + 'changeHandler' + event.target.name);
-    this.setState({ [event.target.name]: event.target.value });
 
-
-  };
-
-  nameHandler = event => {
+  bankNameHandler= event => {
     console.log(event.target.value + 'changeHandler' + event.target.name);
     this.setState({
       [event.target.name]: event.target.value,
       errors: [],
-      isValidFirstName: ''
+      isValidBBName: ''
     });
     const newErrors = {};
-    const firstName = event.target.value;
-    this.firstNameValidation(newErrors, firstName)
+    const parentHospital = event.target.value;
+    this.bankNameValidation(newErrors, parentHospital)
   };
 
-  firstNameValidation = (newErrors, firstName) => {
+
+  bankNameValidation = (newErrors, bankName) => {
     let flag = true;
 
-    if (firstName === '') {
-      newErrors.firstName = ' Cannot be blank!'
+    if (bankName === '') {
+      newErrors.bankName = ' Cannot be blank!'
       flag = false;
     }
     else {
-      if (!(firstName.length >= 3 && firstName.length < 15)) {
-        newErrors.firstName = 'Length must be between 3 and 15 character !'
+      if (!(bankName.length >= 3 && bankName.length < 15)) {
+        newErrors.bankName = 'Length must be between 3 and 15 character !'
         flag = false;
       }
-      if (!(/^[A-Za-z]/.test(firstName))) {
-        newErrors.firstName = ' Must start with a letter !'
+      if (!(/^[A-Za-z]/.test(bankName))) {
+        newErrors.bankName = ' Must start with a letter !'
         flag = false;
       }
 
     }
     if (flag) {
       this.setState({
-        isValidFirstName: true
+        isValidBBName: true
       })
     }
     else {
@@ -118,39 +116,39 @@ class Register extends Component {
 
 
 
-  lastNameHandler = event => {
+  parentHospitalNameHandler= event => {
     console.log(event.target.value + 'changeHandler' + event.target.name);
     this.setState({
       [event.target.name]: event.target.value,
       errors: [],
-      isValidLastName: ''
+      isValidPHName: ''
     });
     const newErrors = {};
-    const lastName = event.target.value;
-
-    this.lastNameValidation(newErrors, lastName)
+    const parentHospital = event.target.value;
+    this.parentHospitalValidation(newErrors,parentHospital)
   };
 
-  lastNameValidation = (newErrors, lastName) => {
+  parentHospitalValidation = (newErrors, parentHospital) => {
     let flag = true;
-    if (lastName === '') {
-      newErrors.lastName = ' Cannot be blank!'
+
+    if (parentHospital === '') {
+      newErrors.parentHospital = ' Cannot be blank!'
       flag = false;
     }
     else {
-      if (!(lastName.length >= 3 && lastName.length < 15)) {
-        newErrors.lastName = 'Length must be between 3 and 15 character !'
+      if (!(parentHospital.length >= 3 && parentHospital.length < 15)) {
+        newErrors.parentHospital = 'Length must be between 3 and 15 character !'
         flag = false;
       }
-      if (!(/^[A-Za-z]/.test(lastName))) {
-        newErrors.lastName = ' Must start with a letter !'
+      if (!(/^[A-Za-z]/.test(parentHospital))) {
+        newErrors.parentHospital = ' Must start with a letter !'
         flag = false;
       }
 
     }
     if (flag) {
       this.setState({
-        isValidLastName: true
+        isValidPHName: true
       })
     }
     else {
@@ -158,49 +156,75 @@ class Register extends Component {
         errors: newErrors
       })
     }
-
   }
 
 
-  birthDateHandler = (event) => {
+  shortNameHandler= event => {
+    console.log(event.target.value + 'changeHandler' + event.target.name);
     this.setState({
       [event.target.name]: event.target.value,
       errors: [],
-      isValidBirthDate: ''
+      isValidShortName: ''
+    });
+    const newErrors = {};
+    const shortName = event.target.value;
+    this.shortNameValidation(newErrors,shortName)
+  };
+
+  shortNameValidation = (newErrors, shortName) => {
+    let flag = true;
+
+    if (shortName === '') {
+      newErrors.shortName = ' Cannot be blank!'
+      flag = false;
+    }
+    else {
+      if (!(shortName.length >= 3 && shortName.length < 15)) {
+        newErrors.shortName = 'Length must be between 3 and 15 character !'
+        flag = false;
+      }
+      if (!(/^[A-Za-z]/.test(shortName))) {
+        newErrors.shortName = ' Must start with a letter !'
+        flag = false;
+      }
+
+    }
+    if (flag) {
+      this.setState({
+        isValidShortName: true
+      })
+    }
+    else {
+      this.setState({
+        errors: newErrors
+      })
+    }
+  }
+
+  categoryHandler = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+      errors: [],
+      isValidCategory: ''
     });
     const newErrors = {};
     console.log(event.target.value);
-    const dateString = event.target.value;
-    this.birthDateValidation(newErrors, dateString)
+    const category = event.target.value;
+    
+    this.categoryValidation(newErrors, category)
 
   }
 
-
-  birthDateValidation = (newErrors, dateString) => {
+  categoryValidation = (newErrors, category) => {
     let flag = true;
-    if (dateString === '') {
-      newErrors.birthDate = ' Cannot be blank!'
+    if (category === '') {
+      newErrors.category = ' Cannot be blank!'
       flag = false;
     }
-    else {
-      var today = new Date();
-      console.log(today);
-      var birthDate = new Date(dateString);
-      var age = today.getFullYear() - birthDate.getFullYear();
-      var m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-      console.log(age);
 
-      if (!(age > 18 && age < 65)) {
-        newErrors.birthDate = 'Age must be between 18 and 65 !'
-        flag = false;
-      }
-    }
     if (flag) {
       this.setState({
-        isValidBirthDate: true
+        isValidCategory: true
       })
     }
     else {
@@ -210,29 +234,47 @@ class Register extends Component {
     }
   }
 
-  genderHandler = (event) => {
+  licenceHandler = event => {
+    console.log(event.target.value + 'changeHandler' + event.target.name);
     this.setState({
       [event.target.name]: event.target.value,
       errors: [],
-      isValidGender: ''
+      isValidLicence: ''
     });
     const newErrors = {};
-    console.log(event.target.value);
-    const gender = event.target.value;
-    this.genderValidation(newErrors, event.target.value)
+    const licence = event.target.value;
+    this.licenceValidation(newErrors, licence)
+  };
 
-  }
+  licenceValidation = (newErrors, licence) => {
 
-  genderValidation = (newErrors, gender) => {
     let flag = true;
-    if (gender === '') {
-      newErrors.gender = ' Cannot be blank!'
+
+    console.log(licence.length);
+    if (licence === '') {
+      newErrors.licence = ' Cannot be blank!'
       flag = false;
+      if ((/^(?=.*[a-zA-Z]).*$/.test(licence))) {
+        newErrors.licence = `cannot contain letter !`
+        flag = false;
+      }
     }
+    else {
+
+      if (!(licence > 1111111111 && licence < 9999999999)) {
+        newErrors.licence = 'Invalid !'
+        flag = false;
+      }
+      if (!(licence.length === 10)) {
+        newErrors.licence = `length=${licence.length}, Length must be 10 digit !`
+        flag = false;
+      }
+    }
+
 
     if (flag) {
       this.setState({
-        isValidGender: true
+        isValidLicence: true
       })
     }
     else {
@@ -241,6 +283,50 @@ class Register extends Component {
       })
     }
   }
+
+  personNameHandler  = event => {
+    console.log(event.target.value + 'changeHandler' + event.target.name);
+    this.setState({
+      [event.target.name]: event.target.value,
+      errors: [],
+      isValidCPName: ''
+    });
+    const newErrors = {};
+    const personName = event.target.value;
+    
+    this.personNameValidation(newErrors, personName)
+  };
+
+  personNameValidation = (newErrors, personName) => {
+    let flag = true;
+
+    if (personName === '') {
+      newErrors.personName = ' Cannot be blank!'
+      flag = false;
+    }
+    else {
+      if (!(personName.length >= 3 && personName.length < 15)) {
+        newErrors.personName = 'Length must be between 3 and 15 character !'
+        flag = false;
+      }
+      if (!(/^[A-Za-z]/.test(personName))) {
+        newErrors.personName = ' Must start with a letter !'
+        flag = false;
+      }
+
+    }
+    if (flag) {
+      this.setState({
+        isValidCPName: true
+      })
+    }
+    else {
+      this.setState({
+        errors: newErrors
+      })
+    }
+  }
+
 
   emailHandler = (event) => {
     this.setState({
@@ -255,7 +341,7 @@ class Register extends Component {
 
   emailValidation = (newErrors, email) => {
     let flag = true;
-    let pattern = "/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/";
+    
 
 
     if (email === '') {
@@ -264,7 +350,7 @@ class Register extends Component {
     }
     else {
 
-      //if (  !(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) ) {
+      
       if (!(validator.isEmail(email))) {
         newErrors.email = ' Invalid Email !'
         flag = false;
@@ -284,186 +370,19 @@ class Register extends Component {
     }
   }
 
-  stateHandler(e) {
-    console.log(e.target.value);
-    const newErrors = {};
-    this.setState({
-      [e.target.name]: e.target.value,
-      errors: [],
-      isValidStateId: '',
-      districtsdata: [],
-      districtId: '',
-      citiesdata: [],
-      citytId: '',
-      isValidDistrictId: '',
-      isValidCitytId: ''
-    });
-    const stateId = e.target.value;
-    this.stateValidation(newErrors, stateId)
-
-
-
-  }
-
-  stateValidation = (newErrors, stateId) => {
-    console.log(stateId);
-    let flag = true;
-    if (stateId === '') {
-      newErrors.stateId = ' Cannot be blank!'
-      flag = false;
-    }
-    else {
-      if (stateId >= 0) {
-        // this.setState({districtsdata:this.state.statesdata[stateId-1].districts});
-        // console.log(this.state.districtsdata);
-        axios.get('http://localhost:8080/commondata/districts/' + stateId)
-          .then(response => {
-            console.log("componentDidMount");
-            console.log(response.data);
-            this.setState({ districtsdata: response.data })
-            console.log(this.state.districtsdata);
-          })
-          .catch(error => {
-            console.log(error);
-          })
-
-
-
-
-
-      }
-      else {
-        newErrors.stateId = ' Cannot be blank!'
-        flag = false;
-      }
-    }
-
-    if (flag) {
-      this.setState({
-        isValidStateId: true
-      })
-    }
-    else {
-      this.setState({
-        errors: newErrors
-      })
-    }
-  }
-
-  districtHandler(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-      errors: [],
-      citiesdata: [],
-      citytId: '',
-      isValidDistrictId: '',
-      isValidCitytId: ''
-    });
-    console.log(e.target.value);
-
-    const newErrors = {};
-    const districtId = e.target.value;
-    this.districtValidation(newErrors, e.target.value)
-    //http://localhost:8080/commondata/cities/39
-
-  }
-
-  districtValidation = (newErrors, districtId) => {
-    let flag = true;
-    if (districtId === '') {
-      newErrors.districtId = ' Cannot be blank!'
-      flag = false;
-    }
-    else {
-      if (districtId >= 0) {
-
-        axios.get('http://localhost:8080/commondata/cities/' + districtId)
-          .then(response => {
-            console.log("componentDidMount");
-            console.log(response.data);
-            this.setState({ citiesdata: response.data })
-            console.log(this.state.citiesdata);
-          })
-          .catch(error => {
-            console.log(error);
-          })
-
-      }
-      else {
-        this.setState({ districtsdata: [] });
-        newErrors.districtId = ' Cannot be blank!'
-        flag = false;
-      }
-    }
-
-    if (flag) {
-      this.setState({
-        isValidDistrictId: true
-      })
-    }
-    else {
-      this.setState({
-        errors: newErrors
-      })
-    }
-  }
-
-
-
-
-  cityHandler(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-      errors: [],
-      isValidCitytId: ''
-    });
-    console.log(e.target.value);
-
-    const newErrors = {};
-    this.cityValidation(newErrors, e.target.value)
-    //http://localhost:8080/commondata/cities/39
-
-  }
-
-  cityValidation = (newErrors, cityId) => {
-    let flag = true;
-    if (cityId === '') {
-      newErrors.cityId = ' Cannot be blank!'
-      flag = false;
-    }
-    else {
-      if (cityId >= 0) {
-
-      }
-      else {
-        newErrors.cityId = ' Cannot be blank!'
-        flag = false;
-      }
-    }
-
-    if (flag) {
-      this.setState({
-        isValidCitytId: true
-      })
-    }
-    else {
-      this.setState({
-        errors: newErrors
-      })
-    }
-  }
 
   mobileHandler = event => {
     console.log(event.target.value + 'changeHandler' + event.target.name);
     this.setState({
       [event.target.name]: event.target.value,
       errors: [],
-      isValidMoblie: ''
+      isValidContact: ''
     });
     const newErrors = {};
     const mobile = event.target.value;
     this.mobileValidation(newErrors, mobile)
   };
+
 
   mobileValidation = (newErrors, mobile) => {
 
@@ -471,33 +390,29 @@ class Register extends Component {
 
     console.log(mobile.length);
     if (mobile === '') {
-      newErrors.mobile = ' Cannot be blank!'
+      newErrors.contact = ' Cannot be blank!'
       flag = false;
       if ((/^(?=.*[a-zA-Z]).*$/.test(mobile))) {
-        newErrors.password = `cannot contain letter !`
+        newErrors.contact = `cannot contain letter !`
         flag = false;
       }
     }
     else {
 
       if (!(mobile > 1111111111 && mobile < 9999999999)) {
-        newErrors.mobile = 'Invalid Mobile !'
+        newErrors.contact = 'Invalid Number !'
         flag = false;
       }
-      if (!(mobile.length == 10)) {
-        newErrors.mobile = `length=${mobile.length}, Length must be 10 digit !`
+      if (!(mobile.length === 10)) {
+        newErrors.contact = `length=${mobile.length}, Length must be 10 digit !`
         flag = false;
       }
-      // if ( !(/^(?=.*[a-zA-Z]).*$/.test(password)))  {
-      //   newErrors.password = `cannot contain letter !`
-      //   flag=false;
-      // }
     }
 
 
     if (flag) {
       this.setState({
-        isValidMoblie: true
+        isValidContact: true
       })
     }
     else {
@@ -507,56 +422,259 @@ class Register extends Component {
     }
   }
 
+  stateHandler(e){
+    const newErrors = {};
+    this.setState({ 
+      [e.target.name] : e.target.value ,
+      errors:[],
+      isValidStateId:'',
+      districtsdata:[],
+      districtId:'',
+      citiesdata:[],
+      cityId:'',
+      isValidDistrictId:'',
+      isValidCitytId:''
+    });
+    const stateId=e.target.value;
+    this.stateValidation(newErrors,stateId)
+    
+    
+    
+  }
 
-  passwordHandler = event => {
-    console.log(event.target.value + 'changeHandler' + event.target.name);
-    this.setState({
-      [event.target.name]: event.target.value,
-      errors: [],
-      isValidPassword: ''
+  stateValidation=(newErrors,stateId)=>{
+    console.log(stateId);
+    let flag=true;
+    if ( stateId === '' ) {
+      newErrors.stateId = ' Cannot be blank!'
+      flag=false;
+    }
+    else{
+      if(stateId>=0){
+          axios.get('http://localhost:8080/commondata/districts/'+stateId)
+          .then(response=>{
+          console.log("componentDidMount");
+          console.log(response.data);
+          this.setState({districtsdata:response.data})
+          console.log(this.state.districtsdata);
+          })
+          .catch(error=>{
+              console.log(error);
+          })
+      }
+      else{
+        newErrors.stateId = ' Cannot be blank!'
+        flag=false;
+      }
+    }
+    
+    if(flag){
+      this.setState({
+        isValidStateId: true
+     })
+    }
+    else{
+      this.setState({
+        errors: newErrors,
+        districtId:'',
+        citiesdata:[],
+        cityId:'',
+        isValidDistrictId:'',
+        isValidCitytId:'',
+        isValidStateId:''
+     })
+    }
+  }
+
+  districtHandler(e){
+    this.setState({ 
+      [e.target.name] : e.target.value ,
+      errors:[],
+      citiesdata:[],
+      cityId:'',
+      isValidDistrictId:'',
+      isValidCitytId:''
+    });
+    
+    const newErrors = {};
+    const districtId=e.target.value;
+    this.districtValidation(newErrors, districtId)
+    //http://localhost:8080/commondata/cities/39
+    
+  }
+
+  districtValidation=(newErrors,districtId)=>{
+    let flag=true;
+    if ( districtId === '' ) {
+      newErrors.districtId = ' Cannot be blank!'
+      flag=false;
+    }
+    else{
+      if(districtId>=0){
+
+          axios.get('http://localhost:8080/commondata/cities/'+districtId)
+          .then(response=>{
+          this.setState({citiesdata:response.data})
+          console.log(this.state.citiesdata);
+          })
+          .catch(error=>{
+              console.log(error);
+          })
+        
+      }
+      else{
+        
+        newErrors.districtId = ' Cannot be blank!'
+        flag=false;
+      }
+    }
+    
+    if(flag){
+      this.setState({
+        isValidDistrictId: true
+     })
+    }
+    else{
+      this.setState({
+        errors: newErrors,
+        citiesdata:[],
+        citytd:'',
+        isValidCitytId:''
+     })
+    }
+  }
+
+  
+
+
+  cityHandler(e){
+    this.setState({ 
+      [e.target.name] : e.target.value ,
+      errors:[],
+      isValidCitytId:''
     });
     const newErrors = {};
-    const password = event.target.value;
-    this.passwordValidation(newErrors, password)
+    const cityId=e.target.value;
+    this.cityValidation(newErrors,cityId)
+    //http://localhost:8080/commondata/cities/39
+    
+  }
+
+  cityValidation=(newErrors,cityId)=>{
+    let flag=true;
+    if ( cityId === '' ) {
+      newErrors.cityId = ' Cannot be blank!'
+      flag=false;
+    }
+    else{
+      if(cityId<0){
+        newErrors.cityId = ' Cannot be blank!'
+        flag=false;
+      }
+     
+    }
+    
+    if(flag){
+      this.setState({
+        isValidCitytId: true
+     })
+    }
+    else{
+      this.setState({
+        errors: newErrors
+     })
+    }
+  }
+
+
+
+
+  passwordHandler= event => {
+    this.setState({ 
+      [event.target.name] : event.target.value ,
+      errors:[],
+      isValidPassword:''
+    });
+    const newErrors = {};
+    const  password = event.target.value;
+    this.passwordValidation(newErrors,password)
   };
 
-  passwordValidation = (newErrors, password) => {
-    let flag = true;
-    if (password === '') {
-      newErrors.password = ' Cannot be blank!'
-      flag = false;
+  passwordValidation=(newErrors,password)=>{
+    let flag=true;
+  if ( password === '' ) {
+    newErrors.password = ' Cannot be blank!'
+    flag=false;
+  }
+  else{
+    if ( !(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/.test(password)))  {
+      newErrors.password = `Invalid Password !`
+      flag=false;
     }
-    else {
-      if (!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/.test(password))) {
-        newErrors.password = `Invalid Password !`
-        flag = false;
-      }
-      if (!(password.length > 7 && password.length < 15)) {
-        newErrors.password = `length=${password.length}, Length must be between 7 and 15 charcter !`
-        flag = false;
-      }
-      if (!(/^(?=.*[a-z]).*$/.test(password))) {
-        newErrors.password = `contain at least one lowercase letter !`
-        flag = false;
-      }
-      if (!(/^(?=.*[A-Z]).*$/.test(password))) {
-        newErrors.password = `contain at least one uppercase letter !`
-        flag = false;
-      }
-      if (!(/^(?=.*[0-9]).*$/.test(password))) {
-        newErrors.password = `contain at least one digit !`
-        flag = false;
-      }
-      if (!(/^(?=.*\W).*$/.test(password))) {
-        newErrors.password = `contain at least one special character !`
-        flag = false;
-      }
+    if ( !(password.length >7 && password.length <15) ) {
+      newErrors.password = `length=${password.length}, Length must be between 7 and 15 charcter !`
+      flag=false;
     }
-
-
-    if (flag) {
+    if ( !(/^(?=.*[a-z]).*$/.test(password)))  {
+      newErrors.password = `contain at least one lowercase letter !`
+      flag=false;
+    }
+    if ( !(/^(?=.*[A-Z]).*$/.test(password)))  {
+      newErrors.password = `contain at least one uppercase letter !`
+      flag=false;
+    }
+    if ( !(/^(?=.*[0-9]).*$/.test(password)))  {
+      newErrors.password = `contain at least one digit !`
+      flag=false;
+    }
+    if ( !(/^(?=.*\W).*$/.test(password)))  {
+      newErrors.password = `contain at least one special character !`
+      flag=false;
+    }
+  }
+    
+    
+    if(flag){
       this.setState({
         isValidPassword: true
+     })
+    }
+    else{
+      this.setState({
+        errors: newErrors,
+        isValidConfirmPassword:''
+     })
+     
+    }
+  }
+
+  compFacilityHandler = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+      errors: [],
+      isValidCompFacility: ''
+    });
+    const newErrors = {};
+    console.log(event.target.value);
+    const compFacility = event.target.value;
+    
+    this.compFacilityValidation(newErrors, compFacility)
+
+  }
+
+  compFacilityValidation = (newErrors, compFacility) => {
+    let flag = true;
+    if (compFacility === '') {
+      newErrors.compFacility = ' Cannot be blank!'
+      flag = false;
+    }else if(compFacility === -1){
+      newErrors.compFacility = ' Cannot be blank!'
+      flag = false;
+    }
+
+    if (flag) {
+      this.setState({
+        isValidCompFacility: true
       })
     }
     else {
@@ -566,61 +684,123 @@ class Register extends Component {
     }
   }
 
-  confirmPasswordHandler = event => {
-    console.log(event.target.value + 'changeHandler' + event.target.name);
-    this.setState({
-      [event.target.name]: event.target.value,
-      errors: [],
-      isValidPassword: '',
-      isValidConfirmPassword: ''
+
+  confirmPasswordHandler= event => {
+    this.setState({ 
+      [event.target.name] : event.target.value ,
+      errors:[],
+      isValidPassword:'',
+      isValidConfirmPassword:''
     });
     const newErrors = {};
-    const confirmPassword = event.target.value;
-    this.confirmPasswordValidation(newErrors, confirmPassword)
+    const  confirmPassword = event.target.value;
+    this.confirmPasswordValidation(newErrors, confirmPassword )
   };
 
-  confirmPasswordValidation = (newErrors, confirmPassword) => {
-    const { password } = this.state
-    console.log(confirmPassword + ' ' + password);
-    let flag = true;
-    if (confirmPassword === '') {
+  confirmPasswordValidation=(newErrors, confirmPassword)=>{
+    const { password} = this.state
+    let flag=true;
+    if ( confirmPassword === '' ) {
       newErrors.confirmPassword = ' Cannot be blank!'
-      flag = false;
+      flag=false;
     }
     else
-      if (password === '') {
-        newErrors.password = ' Cannot be blank!'
-        flag = false;
+    if ( password === '' ) {
+      newErrors.password = ' Cannot be blank!'
+      flag=false;
+    }
+    else{
+      if ( !(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/.test(password)))  {
+        newErrors.password = `Invalid Password !`
+        flag=false;
       }
-      else {
-        if (!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/.test(password))) {
-          newErrors.password = `Invalid Password !`
-          flag = false;
-        }
-        if (password != confirmPassword) {
-          newErrors.confirmPassword = ' Passwords do not match!'
-          flag = false;
-        }
-
+      if(password !== confirmPassword){
+        newErrors.confirmPassword = ' Passwords do not match!'
+        flag=false;
       }
-
-
-    if (flag) {
+      
+    }
+    
+    
+    if(flag){
       this.setState({
         isValidPassword: true,
         isValidConfirmPassword: true
-      })
+     })
     }
-    else {
+    else{
       this.setState({
         errors: newErrors
-      })
+     })
     }
   }
 
 
 
 
+ 
+
+
+  
+
+
+  findFormErrors = () => {
+    const newErrors = {};
+    const {bankName, parentHospital, shortName,  category, licence, personName, email, stateId, 
+      districtId, cityId, compFacility, password, confirmPassword, contact} = this.state
+    this.bankNameValidation(newErrors, bankName)
+
+     this.parentHospitalValidation(newErrors,parentHospital)
+
+    this.shortNameValidation(newErrors,shortName)
+
+    this.categoryValidation(newErrors, category)
+
+     this.personNameValidation(newErrors, personName)
+
+     this.licenceValidation(newErrors, licence)
+
+
+     if (email === '') {
+       newErrors.email = ' Cannot be blank!'
+
+     }
+     else
+       if (!(validator.isEmail(email))) {
+         newErrors.email = ' Invalid Email!'
+      }
+
+
+      this.mobileValidation(newErrors, contact)
+
+     if (stateId === '') {
+      newErrors.stateId = ' Cannot be blank!'
+     }
+     
+
+    if (districtId === '') {
+      newErrors.districtId = ' Cannot be blank!'
+    }
+   
+
+    if (cityId == '') {
+      newErrors.cityId = ' Cannot be blank!'
+    }
+    
+   
+    // 
+
+     this.passwordValidation(newErrors, password)
+
+    this.confirmPasswordValidation(newErrors, confirmPassword)
+
+
+    //this.compFacilityValidation(newErrors, compFacility)
+
+
+    console.log(newErrors);
+    return newErrors
+  }
 
 
   handleSubmit = (event) => {
@@ -629,7 +809,7 @@ class Register extends Component {
     })
     console.log(event);
     const newErrors = this.findFormErrors()
-    //event.preventDefault();
+    event.preventDefault();
 
     console.log(newErrors);
     if (Object.keys(newErrors).length > 0) {
@@ -639,80 +819,33 @@ class Register extends Component {
         errors: newErrors
       })
     }
-  }
-
-  findFormErrors = () => {
-    const newErrors = {};
-    console.log('findFormErrors');
-    const { firstName, lastName, birthDate, gender, email, stateId, districtId, cityId, mobile, password, confirmPassword } = this.state
-    console.log('findFormErrors' + firstName.length + ' ')
-    this.firstNameValidation(newErrors, firstName);
-
-    this.lastNameValidation(newErrors, lastName)
-
-
-
-    if (birthDate === '') {
-      newErrors.birthDate = ' Cannot be blank!'
-    }
-    else {
-      const dateString = birthDate;
-      this.birthDateValidation(newErrors, dateString)
-    }
-
-    console.log(gender);
-    if (gender === '') {
-      newErrors.gender = ' Cannot be blank!'
-    }
-    else {
-      this.genderValidation(newErrors, gender)
-    }
-
-    if (email === '') {
-      newErrors.email = ' Cannot be blank!'
-
-    }
-    else
-      if (!(validator.isEmail(email))) {
-        newErrors.email = ' Invalid Email!'
-
+    else{
+      event.preventDefault();
+      //AddDonorDonor(firstName=null, lastName=null, birthDate=null, gender=null, email=null, stateId=0, districtId=0, cityId=0, mobile=0, password=null, confirmPassword=null)
+      const  { bankName, parentHospital, shortName, category, licence, personName, email, contact, cityId,
+        facility, bedsOfHospital, website, password} = this.state;
+      console.log(cityId);
+      const city={
+        "id":cityId
       }
+      const bank = { bankName, parentHospital, shortName, category, licence, personName, email, 
+        contact, city, facility, bedsOfHospital, website, password }
+      console.log(bank);
+       axios.post('http://localhost:8080/bank/register', bank)
+            .then(response=>{
+             console.log("componentDidMount");
+            console.log(response);
+            //this.setState({citiesdata:response.data})
+            console.log(response.data);
+            })
+            .catch(error=>{
+               console.log(error);
+            })
 
-    if (stateId === '') {
-      newErrors.stateId = ' Cannot be blank!'
     }
-    else {
-      //this.stateValidation=(newErrors,stateId)
-    }
-
-    if (districtId === '') {
-      newErrors.districtId = ' Cannot be blank!'
-    }
-    else {
-      //this.districtValidation(newErrors,districtId)
-    }
-
-    if (cityId === '') {
-      newErrors.cityId = ' Cannot be blank!'
-    }
-    else {
-      //this.cityValidation=(newErrors,cityId)
-    }
-    console.log(parseInt(mobile) == NaN);
-
-    this.mobileValidation(newErrors, mobile)
-
-    this.passwordValidation(newErrors, password)
-
-    this.confirmPasswordValidation(newErrors, confirmPassword)
-
-
-
-
-
-    console.log(newErrors);
-    return newErrors
   }
+
+  
 
   componentDidMount() {
     if (this.state.statesdata.length === 0) {
@@ -735,21 +868,15 @@ class Register extends Component {
   }
 
 
-
-
-
-
   render() {
 
 
     const {
-      firstName, isValidFirstName, lastName, isValidLastName, birthDate, isValidBirthDate, gender, isValidGender,
-      email, isValidEmail, stateId, isValidStateId, districtId, isValidDistrictId, cityId, isValidCitytId,
-      mobile, isValidMoblie, isValidPassword, isValidConfirmPassword, password, confirmPassword,
-      statesdata, districtsdata, citiesdata, errors, succ, validated } = this.state;
-    console.log(districtsdata);
-    console.log(errors);
-    console.log(firstName);
+      isValidBBName,  isValidShortName, isValidPHName, isValidCategory, isValidLicence, isValidCompFacility, isValidNoOfBeds,
+      isValidCPName,  isValidContact, isValidFirstName,  isValidEmail,  isValidStateId,  isValidDistrictId,  isValidCitytId,
+       isValidPassword, isValidConfirmPassword, statesdata, districtsdata, citiesdata, errors  } = this.state;
+
+    
     let statesList = statesdata.length > 0
       && statesdata.map((item, i) => {
         return (
@@ -788,75 +915,78 @@ class Register extends Component {
           <div className="col ">
           </div>
         </div>
-        <Form noValidate onSubmit={this.handleSubmit}>
+        <Form noValidate onSubmit={this.handleSubmit} autoComplete="off">
           <div className="row">
+            
             <div className="col-md-6">
-              <Form.Group className="m-2" controlId="formBasicFirstName">
+              <Form.Group className="m-2" controlId="formBasicBloodBank">
                 <Form.Label>Blood Bank Name</Form.Label>
                 <Form.Control type="text" placeholder="Enter Blood Bank Name"
-                  name='firstName' onChange={this.nameHandler}
-                  isValid={isValidFirstName} isInvalid={!!errors.firstName} required />
+                  name='bankName' onChange={this.bankNameHandler}
+                  isValid={isValidBBName} isInvalid={!!errors.bankName} required />
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.firstName}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.bankName}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
 
             <div className="col-md-6">
-              <Form.Group className="m-2" controlId="formBasicLastName">
+              <Form.Group className="m-2" controlId="formBasicParentHospitalName">
                 <Form.Label>Parent Hospital Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter Parent Hospital" name="lastName"
-                  onChange={this.lastNameHandler} isValid={isValidLastName} isInvalid={!!errors.lastName} required />
+                <Form.Control type="text" placeholder="Enter Parent Hospital" name="parentHospital"
+                  onChange={this.parentHospitalNameHandler} isValid={isValidPHName} isInvalid={!!errors.parentHospital} required />
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.lastName}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.parentHospital}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
           </div>
+
           <div className="row">
             <div className="col-md-4">
-              <Form.Group className="m-2" controlId="formBasicFirstName">
+              <Form.Group className="m-2" controlId="formBasicShortName">
                 <Form.Label>Short Name</Form.Label>
                 <Form.Control type="text" placeholder="Enter Short Name"
-                  name='firstName' onChange={this.nameHandler}
-                  isValid={isValidFirstName} isInvalid={!!errors.firstName} required />
+                  name='shortName' onChange={this.shortNameHandler}
+                  isValid={isValidShortName} isInvalid={!!errors.shortName} required />
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.firstName}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.shortName}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
+
             <div className="col-md-4 ">
-              <Form.Group className='m-2' controlId="formGridGender" >
+              <Form.Group className='m-2' controlId="formGridCategory" >
                 <Form.Label >Category</Form.Label>
-                <Form.Select className="col" name="gender" onChange={this.genderHandler}
-                  isValid={isValidGender} isInvalid={!!errors.gender} required>
+                <Form.Select className="col" name="category" onChange={this.categoryHandler}
+                  isValid={isValidCategory} isInvalid={!!errors.category} required>
                   <option value="-1" hidden>Choose Value</option>
-                  <option value="govt">Govt</option>
-                  <option value="red_cross">Red Cross</option>
-                  <option value="charitable">Charitable/Vol</option>
-                  <option value="private">Private</option>
+                  <option value="GOVT">Govt</option>
+                  <option value="RED_CROSS">Red Cross</option>
+                  <option value="CHARITABLE">Charitable/Vol</option>
+                  <option value="PRIVATE">Private</option>
 
                 </Form.Select>
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.gender}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.category}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
             <div className="col-md-4 ">
-              <Form.Group className="m-2" controlId="formBasicMobile">
+              <Form.Group className="m-2" controlId="formBasicLicence">
                 <Form.Label>Licence No.</Form.Label>
-                <Form.Control type="number" placeholder="Enter Licence No." name="mobile"
-                  onChange={this.mobileHandler} isValid={isValidMoblie} isInvalid={!!errors.mobile} required />
+                <Form.Control type="number" placeholder="Enter Licence No." name="licence"
+                  onChange={this.licenceHandler} isValid={isValidLicence} isInvalid={!!errors.licence} required />
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.mobile}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.licence}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
           </div>
           <div className="row">
           <div className="col-md-4">
-              <Form.Group className="m-2" controlId="formBasicFirstName">
+              <Form.Group className="m-2" controlId="formBasicPersonName">
                 <Form.Label>Contact Person Name</Form.Label>
                 <Form.Control type="text" placeholder="Enter Contact Person Name"
-                  name='firstName' onChange={this.nameHandler}
-                  isValid={isValidFirstName} isInvalid={!!errors.firstName} required />
+                  name='personName' onChange={this.personNameHandler}
+                  isValid={isValidCPName} isInvalid={!!errors.personName} required />
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.firstName}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.personName}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
             <div className="col-md-4 ">
@@ -869,14 +999,14 @@ class Register extends Component {
               </Form.Group>
             </div>
             <div className="col-md-4 ">
-              <Form.Group className="m-2" controlId="formBasicMobile">
+              <Form.Group className="m-2" controlId="formBasicContact">
                 <Form.Label>Contact No.</Form.Label>
-                <Form.Control type="number" placeholder="Enter Contact Number" name="mobile"
-                  onChange={this.mobileHandler} isValid={isValidMoblie} isInvalid={!!errors.mobile} required />
+                <Form.Control type="number" placeholder="Enter Contact Number" name="contact"
+                  onChange={this.mobileHandler} isValid={isValidContact} isInvalid={!!errors.contact} required />
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.mobile}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.contact}</b></Form.Control.Feedback>
               </Form.Group>
-            </div>
+            </div> 
           </div>
           <div className="row">
             <div className="col-md-4">
@@ -921,25 +1051,25 @@ class Register extends Component {
           </div>
           <div className="row">
           <div className="col-md-4 ">
-              <Form.Group className='m-2' controlId="formGridGender" >
+              <Form.Group className='m-2' controlId="formGridComponentFacility" >
                 <Form.Label >Component Facility</Form.Label>
-                <Form.Select className="col" name="facility" onChange={this.genderHandler}
-                  isValid={isValidGender} isInvalid={!!errors.gender} required>
+                <Form.Select className="col" name="facility" onChange={this.compFacilityHandler}
+                  isValid={isValidCompFacility} isInvalid={!!errors.compFacility} required>
                   <option value="-1" hidden>Choose Value</option>
-                  <option value="yes">Yes</option>
-                  <option value="no">No</option>
+                  <option value="YES">Yes</option>
+                  <option value="NO">No</option>
                 </Form.Select>
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.gender}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.compFacility}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
             <div className="col-md-4 ">
               <Form.Group className="m-2" controlId="formBasicMobile">
                 <Form.Label>No of Bed Hospital</Form.Label>
                 <Form.Control type="number" placeholder="Enter No of Beds" name="bedsOfHospital"
-                  onChange={this.mobileHandler} isValid={isValidMoblie} isInvalid={!!errors.mobile} required />
+                   isValid={isValidNoOfBeds} isInvalid={!!errors.noOfBeds} required />
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.mobile}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.noOfBeds}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
             <div className="col-md-4">
