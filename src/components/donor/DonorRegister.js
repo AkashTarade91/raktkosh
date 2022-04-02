@@ -41,7 +41,6 @@ class DonorRegister extends Component {
             }
         };
         
-        this.changeHandler=this.changeHandler.bind(this);
         this.handleSubmit=this.handleSubmit.bind(this);
         this.nameHandler=this.nameHandler.bind(this);
         this.lastNameHandler=this.lastNameHandler.bind(this);
@@ -56,15 +55,9 @@ class DonorRegister extends Component {
         this.confirmPasswordHandler=this.confirmPasswordHandler.bind(this);
       }
 
-      changeHandler = event => {
-        console.log(event.target.value+'changeHandler'+event.target.name);
-        this.setState({ [event.target.name] : event.target.value });
-        
-        
-      };
+      
 
       nameHandler = event => {
-        console.log(event.target.value+'changeHandler'+event.target.name);
         this.setState({ 
           [event.target.name] : event.target.value ,
           errors:[],
@@ -108,7 +101,6 @@ class DonorRegister extends Component {
 
 
       lastNameHandler = event => {
-        console.log(event.target.value+'changeHandler'+event.target.name);
         this.setState({ 
           [event.target.name] : event.target.value ,
           errors:[],
@@ -158,7 +150,6 @@ class DonorRegister extends Component {
           isValidBirthDate:''
         });
         const newErrors = {};
-        console.log(event.target.value);
         const  dateString = event.target.value;
         this.birthDateValidation(newErrors,dateString)
        
@@ -173,7 +164,6 @@ class DonorRegister extends Component {
         }
         else{
         var today = new Date();
-        console.log(today);
         var birthDate = new Date(dateString);
         var age = today.getFullYear() - birthDate.getFullYear();
         var m = today.getMonth() - birthDate.getMonth();
@@ -181,7 +171,6 @@ class DonorRegister extends Component {
         {
             age--;
         }
-        console.log(age);
         
         if ( !(age>18 &&  age<65) ) {
             newErrors.birthDate = 'Age must be between 18 and 65 !'
@@ -207,7 +196,6 @@ class DonorRegister extends Component {
           isValidGender:''
         });
         const newErrors = {};
-        console.log(event.target.value);
         const  gender = event.target.value;
         this.genderValidation(newErrors, gender)
         
@@ -239,7 +227,6 @@ class DonorRegister extends Component {
           isValidEmail:''
         });
         const newErrors = {};
-        console.log(event.target.value);
         this.emailValidation(newErrors,event.target.value)
       }
 
@@ -271,7 +258,6 @@ class DonorRegister extends Component {
       }
 
       stateHandler(e){
-        console.log(e.target.value);
         const newErrors = {};
         this.setState({ 
           [e.target.name] : e.target.value ,
@@ -280,11 +266,12 @@ class DonorRegister extends Component {
           districtsdata:[],
           districtId:'',
           citiesdata:[],
-          citytId:'',
+          cityId:'',
           isValidDistrictId:'',
           isValidCitytId:''
         });
         const stateId=e.target.value;
+        
         this.stateValidation(newErrors,stateId)
         
         
@@ -300,8 +287,6 @@ class DonorRegister extends Component {
         }
         else{
           if(stateId>=0){
-            // this.setState({districtsdata:this.state.statesdata[stateId-1].districts});
-            // console.log(this.state.districtsdata);
               axios.get('http://localhost:8080/commondata/districts/'+stateId)
               .then(response=>{
               console.log("componentDidMount");
@@ -331,7 +316,14 @@ class DonorRegister extends Component {
         }
         else{
           this.setState({
-            errors: newErrors
+            errors: newErrors,
+            isValidStateId:'',
+            districtsdata:[],
+            districtId:'',
+            citiesdata:[],
+            cityId:'',
+            isValidDistrictId:'',
+            isValidCitytId:''
          })
         }
       }
@@ -341,11 +333,10 @@ class DonorRegister extends Component {
           [e.target.name] : e.target.value ,
           errors:[],
           citiesdata:[],
-          citytId:'',
+          cityId:'',
           isValidDistrictId:'',
           isValidCitytId:''
         });
-        console.log(e.target.value);
         
         const newErrors = {};
         const districtId=e.target.value;
@@ -365,8 +356,6 @@ class DonorRegister extends Component {
 
               axios.get('http://localhost:8080/commondata/cities/'+districtId)
               .then(response=>{
-              console.log("componentDidMount");
-              console.log(response.data);
               this.setState({citiesdata:response.data})
               console.log(this.state.citiesdata);
               })
@@ -389,7 +378,11 @@ class DonorRegister extends Component {
         }
         else{
           this.setState({
-            errors: newErrors
+            errors: newErrors,
+            citiesdata:[],
+            cityId:'',
+            isValidDistrictId:'',
+            isValidCitytId:''
          })
         }
       }
@@ -403,8 +396,6 @@ class DonorRegister extends Component {
           errors:[],
           isValidCitytId:''
         });
-        console.log(e.target.value);
-        
         const newErrors = {};
         this.cityValidation(newErrors,e.target.value)
         //http://localhost:8080/commondata/cities/39
@@ -440,7 +431,6 @@ class DonorRegister extends Component {
       }
 
       mobileHandler = event => {
-        console.log(event.target.value+'changeHandler'+event.target.name);
         this.setState({ 
           [event.target.name] : event.target.value ,
           errors:[],
@@ -455,7 +445,6 @@ class DonorRegister extends Component {
        
         let flag=true;
       
-        console.log(mobile.length);
         if ( mobile === '' ) {
           newErrors.mobile = ' Cannot be blank!'
           flag=false;
@@ -470,7 +459,7 @@ class DonorRegister extends Component {
           newErrors.mobile = 'Invalid Mobile !'
           flag=false;
         }
-        if ( !(mobile.length==10) ) {
+        if ( !(mobile.length===10) ) {
           newErrors.mobile = `length=${mobile.length}, Length must be 10 digit !`
           flag=false;
         }
@@ -495,7 +484,6 @@ class DonorRegister extends Component {
 
 
       passwordHandler= event => {
-        console.log(event.target.value+'changeHandler'+event.target.name);
         this.setState({ 
           [event.target.name] : event.target.value ,
           errors:[],
@@ -553,7 +541,6 @@ class DonorRegister extends Component {
       }
 
       confirmPasswordHandler= event => {
-        console.log(event.target.value+'changeHandler'+event.target.name);
         this.setState({ 
           [event.target.name] : event.target.value ,
           errors:[],
@@ -567,7 +554,6 @@ class DonorRegister extends Component {
 
       confirmPasswordValidation=(newErrors, confirmPassword)=>{
         const { password} = this.state
-        console.log(confirmPassword+' '+password);
         let flag=true;
         if ( confirmPassword === '' ) {
           newErrors.confirmPassword = ' Cannot be blank!'
@@ -583,7 +569,7 @@ class DonorRegister extends Component {
             newErrors.password = `Invalid Password !`
             flag=false;
           }
-          if(password != confirmPassword){
+          if(password !== confirmPassword){
             newErrors.confirmPassword = ' Passwords do not match!'
             flag=false;
           }
@@ -613,7 +599,7 @@ class DonorRegister extends Component {
         this.setState({
           errors: []
       })
-        console.log(event);
+        
         const newErrors=this.findFormErrors()
         //event.preventDefault();
         
@@ -629,7 +615,7 @@ class DonorRegister extends Component {
       else{
         event.preventDefault();
         //AddDonorDonor(firstName=null, lastName=null, birthDate=null, gender=null, email=null, stateId=0, districtId=0, cityId=0, mobile=0, password=null, confirmPassword=null)
-        const  { firstName, lastName, birthDate, gender, email, stateId, districtId, cityId, mobile, password, confirmPassword } = this.state;
+        const  { firstName, lastName, birthDate, gender, email,  cityId, mobile, password } = this.state;
         console.log(cityId);
         const city={
           "id":cityId
@@ -652,9 +638,9 @@ class DonorRegister extends Component {
 
       findFormErrors=()=>{
         const newErrors = {};
-        console.log('findFormErrors');
+        
         const { firstName, lastName, birthDate, gender, email, stateId, districtId, cityId, mobile, password, confirmPassword } = this.state
-        console.log('findFormErrors'+firstName.length+' ')
+        
         this.firstNameValidation(newErrors,firstName);
         
         this.lastNameValidation(newErrors,lastName)
@@ -669,7 +655,6 @@ class DonorRegister extends Component {
         this.birthDateValidation(newErrors,dateString)
         }
         
-        console.log(gender);
         if ( gender === '' ) {
           newErrors.gender = ' Cannot be blank!'
         }
@@ -686,28 +671,28 @@ class DonorRegister extends Component {
           newErrors.email = ' Invalid Email!'
          
         }
-
-        if ( stateId === '' ) {
+        const vstateId=stateId;
+        if ( vstateId === '' ) {
           newErrors.stateId = ' Cannot be blank!'
         }
         else{
-         //this.stateValidation=(newErrors,stateId)
+         //this.stateValidation=(newErrors,vstateId)
         }
-
-        if ( districtId === '' ) {
+        const vdistrictId=districtId;
+        if ( vdistrictId === '' ) {
           newErrors.districtId = ' Cannot be blank!'
         }
         else{
-          //this.districtValidation(newErrors,districtId)
+          //this.districtValidation(newErrors,vdistrictId)
         }
-
-        if ( cityId === '' ) {
+        const vcityId=cityId;
+        if ( vcityId === '' ) {
           newErrors.cityId = ' Cannot be blank!'
         }
         else{
-          //this.cityValidation=(newErrors,cityId)
+          //this.cityValidation=(newErrors,vcityId)
         }
-        console.log(parseInt(mobile) == NaN);
+       
 
         this.mobileValidation(newErrors,mobile)
         
@@ -755,8 +740,8 @@ class DonorRegister extends Component {
            isValidFirstName,  isValidLastName , isValidBirthDate,  isValidGender ,
            isValidEmail, isValidStateId, isValidDistrictId, isValidCitytId,
            isValidMoblie, isValidPassword, isValidConfirmPassword, 
-          statesdata, districtsdata, citiesdata, errors} =this.state;
-        let statesList = statesdata.length > 0
+           statesdata, districtsdata, citiesdata, errors} =this.state;
+          let statesList = statesdata.length > 0
             && statesdata.map((item, i) => {
             return (
           
