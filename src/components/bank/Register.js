@@ -59,7 +59,7 @@ class Register extends Component {
     this.shortNameHandler=this.shortNameHandler.bind(this);
     this.categoryHandler=this.categoryHandler.bind(this);
     this.licenceHandler=this.licenceHandler.bind(this);
-    this.=this.personNameHandler.bind(this);
+    this.personNameHandler=this.personNameHandler.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.emailHandler = this.emailHandler.bind(this);
     this.stateHandler = this.stateHandler.bind(this);

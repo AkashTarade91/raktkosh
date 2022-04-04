@@ -9,12 +9,9 @@ import BloodBankAvailability from './components/BloodBankAvailability';
 import DonorLogin from './components/donor/DonorLogin';
 import DonorRegister from './components/donor/DonorRegister';
 import DonorAppointment from './components/donor/DonorAppointment';
-import CampSchedule from './components/bank/CampSchedule';
-<<<<<<< HEAD
-import CampRegister from './components/bank/CampRegister';
-=======
-import BloodStock from './components/bank/BloodStock'
->>>>>>> 8376a8d27d4b6d3c3cbdbbd90f35deff5447167b
+import BloodStock from './components/bank/BloodStock';
+// import CampSchedule from './components/bank/CampSchedule';
+// import CampRegister from './components/bank/CampRegister';
 import Login from './components/bank/Login';
 import Register from './components/bank/Register';
 import React, { Component } from 'react'
@@ -42,13 +39,13 @@ class App extends Component {
         <Route path='/donor/login' element={<DonorLogin/>}></Route>
         <Route path='/donor/register' element={<DonorRegister/>}></Route>
         <Route path='/donor/donorAppointment' element={<DonorAppointment/>}></Route>
-        <Route path='/bank/CampSchedule' element={<CampSchedule/>}></Route>
+        {/* <Route path='/bank/CampSchedule' element={<CampSchedule/>}></Route> */}
         <Route path='/bank/bloodStock' element={<BloodStock/>}></Route>
 
   
         <Route path='/bank/login' element={<Login/>}></Route>
         <Route path='/bank/register' element={<Register/>}></Route>
-        <Route path='/bank/CampRegister'  element={<CampRegister/>}></Route>
+        {/* <Route path='/bank/CampRegister'  element={<CampRegister/>}></Route> */}
       </Routes>
       </>
     )
