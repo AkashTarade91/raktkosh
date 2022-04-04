@@ -3,6 +3,8 @@ import { Form, Button } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import validator from 'validator'
+import commonService from '../../service/common.service'
+import bankService from '../../service/bankService';
 class Register extends Component {
   constructor(props) {
     super(props)
@@ -29,25 +31,24 @@ class Register extends Component {
       isValidEmail: '',
       contact: '',
       isValidContact: '',
-
-
       stateId: '',
       isValidStatetId: '',
       districtId: '',
       isValidDistrictId: '',
       cityId: '',
       isValidCitytId: '',
-      compFacility:'',
+      facility:'',
       isValidCompFacility:'',
-      noOfBeds : '',
+      beds : '',
       isValidNoOfBeds:'',
       website:'',
       isValidWebsite:'',
-
       password: '',
       isValidPassword: '',
       confirmPassword: '',
       isValidConfirmPassword: '',
+      address: '',
+      isValidAddress: '',
       errors: {
       }
     };
@@ -58,7 +59,7 @@ class Register extends Component {
     this.shortNameHandler=this.shortNameHandler.bind(this);
     this.categoryHandler=this.categoryHandler.bind(this);
     this.licenceHandler=this.licenceHandler.bind(this);
-    this.personNameHandler=this.personNameHandler.bind(this);
+    this.=this.personNameHandler.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.emailHandler = this.emailHandler.bind(this);
     this.stateHandler = this.stateHandler.bind(this);
@@ -68,6 +69,9 @@ class Register extends Component {
     this.mobileHandler = this.mobileHandler.bind(this);
     this.passwordHandler = this.passwordHandler.bind(this);
     this.confirmPasswordHandler = this.confirmPasswordHandler.bind(this);
+    this.addressHandler=this.addressHandler.bind(this);
+    this.bedsHandler=this.bedsHandler.bind(this);
+    this.websiteHandler=this.websiteHandler.bind(this);
   }
 
 
@@ -92,8 +96,8 @@ class Register extends Component {
       flag = false;
     }
     else {
-      if (!(bankName.length >= 3 && bankName.length < 15)) {
-        newErrors.bankName = 'Length must be between 3 and 15 character !'
+      if (!(bankName.length >= 3 && bankName.length < 50)) {
+        newErrors.bankName = 'Length must be between 3 and 50 character !'
         flag = false;
       }
       if (!(/^[A-Za-z]/.test(bankName))) {
@@ -136,8 +140,8 @@ class Register extends Component {
       flag = false;
     }
     else {
-      if (!(parentHospital.length >= 3 && parentHospital.length < 15)) {
-        newErrors.parentHospital = 'Length must be between 3 and 15 character !'
+      if (!(parentHospital.length >= 3 && parentHospital.length < 50)) {
+        newErrors.parentHospital = 'Length must be between 3 and 50 character !'
         flag = false;
       }
       if (!(/^[A-Za-z]/.test(parentHospital))) {
@@ -389,25 +393,27 @@ class Register extends Component {
     let flag = true;
 
     console.log(mobile.length);
-    if (mobile === '') {
-      newErrors.contact = ' Cannot be blank!'
-      flag = false;
-      if ((/^(?=.*[a-zA-Z]).*$/.test(mobile))) {
-        newErrors.contact = `cannot contain letter !`
-        flag = false;
-      }
-    }
-    else {
-
-      if (!(mobile > 1111111111 && mobile < 9999999999)) {
+   
+      if (mobile === '') {
+       newErrors.contact = ' Cannot be blank!'
+       flag = false;
+       if (!(/^\d{10}$/.test(mobile))) {
         newErrors.contact = 'Invalid Number !'
         flag = false;
-      }
-      if (!(mobile.length === 10)) {
-        newErrors.contact = `length=${mobile.length}, Length must be 10 digit !`
-        flag = false;
-      }
+      
+     }
     }
+     else
+      {
+       if (!(mobile.length === 10)) {
+          newErrors.contact = `length=${mobile.length}, Length must be 10 digit !`
+          flag = false;
+        }
+
+    }
+  
+     
+    
 
 
     if (flag) {
@@ -451,7 +457,8 @@ class Register extends Component {
     }
     else{
       if(stateId>=0){
-          axios.get('http://localhost:8080/commondata/districts/'+stateId)
+          //axios.get('http://localhost:8080/commondata/districts/'+stateId)
+          commonService.getAllDistrictsByStateId(stateId)
           .then(response=>{
           console.log("componentDidMount");
           console.log(response.data);
@@ -495,15 +502,8 @@ class Register extends Component {
       isValidDistrictId:'',
       isValidCitytId:''
     });
-    
     const newErrors = {};
     const districtId=e.target.value;
-    this.districtValidation(newErrors, districtId)
-    //http://localhost:8080/commondata/cities/39
-    
-  }
-
-  districtValidation=(newErrors,districtId)=>{
     let flag=true;
     if ( districtId === '' ) {
       newErrors.districtId = ' Cannot be blank!'
@@ -512,7 +512,8 @@ class Register extends Component {
     else{
       if(districtId>=0){
 
-          axios.get('http://localhost:8080/commondata/cities/'+districtId)
+          //axios.get('http://localhost:8080/commondata/cities/'+districtId)
+          commonService.getAllCitiesByDistricId(districtId)
           .then(response=>{
           this.setState({citiesdata:response.data})
           console.log(this.state.citiesdata);
@@ -648,27 +649,18 @@ class Register extends Component {
     }
   }
 
-  compFacilityHandler = (event) => {
+  compFacilityHandler  = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
       errors: [],
-      isValidCompFacility: ''
+      isValidCompFacility :''
     });
     const newErrors = {};
     console.log(event.target.value);
-    const compFacility = event.target.value;
-    
-    this.compFacilityValidation(newErrors, compFacility)
-
-  }
-
-  compFacilityValidation = (newErrors, compFacility) => {
+    const facility = event.target.value;
     let flag = true;
-    if (compFacility === '') {
-      newErrors.compFacility = ' Cannot be blank!'
-      flag = false;
-    }else if(compFacility === -1){
-      newErrors.compFacility = ' Cannot be blank!'
+    if (facility === '') {
+      newErrors.facility = ' Cannot be blank!'
       flag = false;
     }
 
@@ -683,7 +675,6 @@ class Register extends Component {
       })
     }
   }
-
 
   confirmPasswordHandler= event => {
     this.setState({ 
@@ -735,9 +726,96 @@ class Register extends Component {
     }
   }
 
+  addressHandler  = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+      errors: [],
+      isValidAddress: ''
+    });
+    const newErrors = {};
+    console.log(event.target.value);
+    const address = event.target.value;
+
+    let flag = true;
+    if (address === '') {
+      newErrors.address = ' Cannot be blank!'
+      flag = false;
+    }
+
+     
+    if(flag){
+      this.setState({
+        isValidAddress: true
+     })
+    }
+    else{
+      this.setState({
+        errors: newErrors
+     })
+    }
+
+  }
 
 
+  websiteHandler  = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+      errors: [],
+      isValidWebsite: ''
+    });
+    const newErrors = {};
+    console.log(event.target.value);
+    const website = event.target.value;
+    let flag = true;
+    if (website === '') {
+      newErrors.website = ' Cannot be blank!'
+      flag = false;
+    }
 
+     
+    if(flag){
+      this.setState({
+        isValidWebsite: true
+     })
+    }
+    else{
+      this.setState({
+        errors: newErrors
+     })
+    }
+    
+
+  }
+
+  bedsHandler= (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+      errors: [],
+      isValidNoOfBeds: ''
+    });
+    const newErrors = {};
+    console.log(event.target.value);
+    const beds = event.target.value;
+    let flag = true;
+    if (beds === '') {
+      newErrors.beds = ' Cannot be blank!'
+      flag = false;
+    }
+
+     
+    if(flag){
+      this.setState({
+        isValidNoOfBeds: true
+     })
+    }
+    else{
+      this.setState({
+        errors: newErrors
+     })
+    }
+    
+
+  }
  
 
 
@@ -747,14 +825,18 @@ class Register extends Component {
   findFormErrors = () => {
     const newErrors = {};
     const {bankName, parentHospital, shortName,  category, licence, personName, email, stateId, 
-      districtId, cityId, compFacility, password, confirmPassword, contact} = this.state
+      districtId, cityId, facility, password, confirmPassword, contact, address, beds} = this.state
+      console.log(this.state);
     this.bankNameValidation(newErrors, bankName)
 
      this.parentHospitalValidation(newErrors,parentHospital)
 
     this.shortNameValidation(newErrors,shortName)
-
-    this.categoryValidation(newErrors, category)
+      //console.log(category=== '');
+    //this.categoryValidation(newErrors, category)
+    if (category === '') {
+      newErrors.category = ' Cannot be blank!'
+    }
 
      this.personNameValidation(newErrors, personName)
 
@@ -765,13 +847,64 @@ class Register extends Component {
        newErrors.email = ' Cannot be blank!'
 
      }
-     else
-       if (!(validator.isEmail(email))) {
-         newErrors.email = ' Invalid Email!'
+     else{
+      if (!(validator.isEmail(email))) {
+        newErrors.email = ' Invalid Email!'
       }
+      else{
+        bankService.getVerifyEmail(email)
+      .then(response=>{
+        console.log("componentDidMount");
+       console.log(response);
+       //this.setState({citiesdata:response.data})
+       console.log(response.data);
+       if(response.data){
+         console.log("inside");
+           newErrors.email = 'Email Already Registered!'
+           this.setState({
+            isValidEmail: false
+         })
+         }
+       })
+       .catch(error=>{
+          console.log(error);
+       })
+      }
+     }
 
 
-      this.mobileValidation(newErrors, contact)
+     if (contact === '') {
+      newErrors.contact = ' Cannot be blank!'
+    }
+    else{
+      if (!(contact.length === 10)) {
+        newErrors.contact = `length=${contact.length}, Length must be 10 digit !`
+      }
+     else{
+       bankService.getVerifyMobile(contact)
+     .then(response=>{
+       console.log("componentDidMount");
+      console.log(response);
+      //this.setState({citiesdata:response.data})
+      console.log(response.data);
+      if(response.data){
+        console.log("inside");
+          newErrors.contact = 'Number Already Registered!'
+          this.setState({
+           isValidContact: false
+        })
+        }
+      })
+      .catch(error=>{
+         console.log(error);
+      })
+
+     }
+    }
+       
+
+
+      //this.mobileValidation(newErrors, contact)
 
      if (stateId === '') {
       newErrors.stateId = ' Cannot be blank!'
@@ -787,16 +920,33 @@ class Register extends Component {
       newErrors.cityId = ' Cannot be blank!'
     }
     
+    console.log(facility);
+    if (facility === '') {
+      newErrors.facility = ' Cannot be blank!'
+    }
+
+    if (beds === '') {
+      newErrors.beds = ' Cannot be blank!'
+    }
    
-    // 
+    
 
      this.passwordValidation(newErrors, password)
 
     this.confirmPasswordValidation(newErrors, confirmPassword)
 
+    // console.log(isValidCompFacility);
+    // const comp=compFacility
+    // // console.log(comp);
+   
 
-    //this.compFacilityValidation(newErrors, compFacility)
 
+    if (address === '') {
+      newErrors.address = ' Cannot be blank!'
+    }
+    // this.compFacilityValidation(newErrors, compFacility)
+
+    // this.addressValidation(newErrors, address)
 
     console.log(newErrors);
     return newErrors
@@ -823,13 +973,13 @@ class Register extends Component {
       event.preventDefault();
       //AddDonorDonor(firstName=null, lastName=null, birthDate=null, gender=null, email=null, stateId=0, districtId=0, cityId=0, mobile=0, password=null, confirmPassword=null)
       const  { bankName, parentHospital, shortName, category, licence, personName, email, contact, cityId,
-        facility, bedsOfHospital, website, password} = this.state;
+        facility, beds, website, password, address} = this.state;
       console.log(cityId);
       const city={
         "id":cityId
       }
       const bank = { bankName, parentHospital, shortName, category, licence, personName, email, 
-        contact, city, facility, bedsOfHospital, website, password }
+        contact, city, facility, beds, website, password, address }
       console.log(bank);
        axios.post('http://localhost:8080/bank/register', bank)
             .then(response=>{
@@ -851,7 +1001,8 @@ class Register extends Component {
     if (this.state.statesdata.length === 0) {
 
       //http://localhost:8080/commondata/cities/39
-      axios.get('http://localhost:8080/commondata/statesAndDistrict')
+      //axios.get('http://localhost:8080/commondata/allstates')
+      commonService.getAllStates()
         .then(response => {
           console.log("componentDidMount");
           console.log(response.data);
@@ -873,8 +1024,8 @@ class Register extends Component {
 
     const {
       isValidBBName,  isValidShortName, isValidPHName, isValidCategory, isValidLicence, isValidCompFacility, isValidNoOfBeds,
-      isValidCPName,  isValidContact, isValidFirstName,  isValidEmail,  isValidStateId,  isValidDistrictId,  isValidCitytId,
-       isValidPassword, isValidConfirmPassword, statesdata, districtsdata, citiesdata, errors  } = this.state;
+      isValidCPName,  isValidContact,  isValidEmail,  isValidStateId,  isValidDistrictId,  isValidCitytId,
+       isValidPassword, isValidConfirmPassword, isValidWebsite,  isValidAddress, statesdata, districtsdata, citiesdata, errors  } = this.state;
 
     
     let statesList = statesdata.length > 0
@@ -905,7 +1056,7 @@ class Register extends Component {
 
     return (
 
-      <div className="container bg-dark text-white text-center col-9 font-weight-bold">
+      <div className="container bg-dark text-white text-center col-11 font-weight-bold">
         <div className="row">
           <div className="col ">
           </div>
@@ -956,7 +1107,7 @@ class Register extends Component {
               <Form.Group className='m-2' controlId="formGridCategory" >
                 <Form.Label >Category</Form.Label>
                 <Form.Select className="col" name="category" onChange={this.categoryHandler}
-                  isValid={isValidCategory} isInvalid={!!errors.category} required>
+                  isValid={isValidCategory} isInvalid={!!errors.category}  required>
                   <option value="-1" hidden>Choose Value</option>
                   <option value="GOVT">Govt</option>
                   <option value="RED_CROSS">Red Cross</option>
@@ -1054,32 +1205,32 @@ class Register extends Component {
               <Form.Group className='m-2' controlId="formGridComponentFacility" >
                 <Form.Label >Component Facility</Form.Label>
                 <Form.Select className="col" name="facility" onChange={this.compFacilityHandler}
-                  isValid={isValidCompFacility} isInvalid={!!errors.compFacility} required>
+                  isValid={isValidCompFacility} isInvalid={!!errors.facility} required>
                   <option value="-1" hidden>Choose Value</option>
                   <option value="YES">Yes</option>
                   <option value="NO">No</option>
                 </Form.Select>
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.compFacility}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.facility}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
             <div className="col-md-4 ">
               <Form.Group className="m-2" controlId="formBasicMobile">
                 <Form.Label>No of Bed Hospital</Form.Label>
-                <Form.Control type="number" placeholder="Enter No of Beds" name="bedsOfHospital"
-                   isValid={isValidNoOfBeds} isInvalid={!!errors.noOfBeds} required />
+                <Form.Control type="number" placeholder="Enter No of Beds" name="beds" onChange={this.bedsHandler}
+                   isValid={isValidNoOfBeds} isInvalid={!!errors.beds} required />
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.noOfBeds}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.beds}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
             <div className="col-md-4">
               <Form.Group className="m-2" controlId="formBasicFirstName">
                 <Form.Label>Website</Form.Label>
                 <Form.Control type="text" placeholder="Enter website"
-                  name='website' onChange={this.nameHandler}
-                  isValid={isValidFirstName} isInvalid={!!errors.firstName} required />
+                  name='website' onChange={this.websiteHandler}
+                  isValid={isValidWebsite} isInvalid={!!errors.website} required />
                 <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid"><b>{errors.firstName}</b></Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid"><b>{errors.website}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
           </div>
@@ -1104,6 +1255,15 @@ class Register extends Component {
                 <Form.Control.Feedback type="invalid"><b>{errors.confirmPassword}</b></Form.Control.Feedback>
               </Form.Group>
             </div>
+            <div className="col-md-4 ">
+            <Form.Group className="m-2" controlId="exampleForm.ControlTextarea">
+              <Form.Label>Address</Form.Label>
+              <Form.Control type="textarea" rows={1.5} name="address"  placeholder="Enter  Address" 
+              onChange={this.addressHandler} isValid={isValidAddress} isInvalid={!!errors.address} required/>
+              <Form.Control.Feedback ><b>Looks good!</b></Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid"><b>{errors.address}</b></Form.Control.Feedback>
+            </Form.Group>
+            </div>
           </div>
           <div className="row">
             <div className="col ">
@@ -1112,7 +1272,7 @@ class Register extends Component {
             <div className="col-md-8 m-2">
               <Button variant="primary" type="submit" >Register </Button>
 
-              <Link to="/donar/login">
+              <Link to="/bank/login">
                 <Button className="m-4" variant="danger">Already Registered ?</Button>
               </Link>
             </div>
