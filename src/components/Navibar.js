@@ -26,7 +26,9 @@ export const Navibar = ()=>{
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="/donor/login">Donor Login</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.2">About Blood Donation</NavDropdown.Item>
+                        <NavDropdown.Item href="/faq">RaktKosh FAQ</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="/about">About Blood Donation</NavDropdown.Item>
                      </NavDropdown>
 
                      <NavDropdown title="Blood Bank Login" id="basic-nav-dropdown">

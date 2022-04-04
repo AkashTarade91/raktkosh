@@ -6,6 +6,7 @@ import "./css/home.css";
 import "./css/table.css";
 
 import img2 from"../images/blood.PNG";
+import HomeTable from './HomeTable';
 
 export class Home extends Component {
     fun=()=> {
@@ -24,69 +25,8 @@ export class Home extends Component {
      
       <>
       
-      <div >
-          <p className="text">LEARN ABOUT DONATION</p>
-      </div>  
-      <div className='flexbox-container '>
+      <HomeTable /> 
       
-        <div className="col-md-6" id='mydiv'>
-            <img  src={img2} alt="blood" />
-        </div>
-      <div className="col-md-6">
-      <table className="table table-striped table-bordered text-center" >
-      <tbody>
-      <tr>
-        <th colSpan='3' style={{ backgroundColor:"red" ,color:"white" }}  >Compatible Blood Type Donors</th>
-      </tr>
-      <tr>
-        <td ><b>Blood Type</b></td>
-        <td ><b>Donate Blood To</b></td>
-        <td ><b>Receive Blood From</b></td>
-      </tr>
-      <tr>
-        <td  style={bStyle}>A+</td>
-        <td >A+ AB+</td>
-        <td>A+ A- O+ O-</td>
-      </tr>
-      <tr>
-        <td style={bStyle}>O+</td>
-        <td>O+ A+ B+ AB+</td>
-        <td>O+ O-</td>
-      </tr>
-      <tr>
-        <td style={bStyle}>B+</td>
-        <td>B+ AB+</td>
-        <td>B+ B- O+ O-</td>
-      </tr>
-      <tr>
-        <td style={bStyle}>AB+</td>
-        <td>AB+</td>
-        <td>Everyone</td>
-      </tr>
-      <tr>
-        <td style={bStyle}>A-</td>
-        <td>A+ A- AB+ AB-</td>
-        <td>A- O-</td>
-      </tr>
-      <tr>
-        <td style={bStyle}>O-</td>
-        <td>Everyone</td>
-        <td>O-</td>
-      </tr>
-      <tr>
-        <td style={bStyle}>B-</td>
-        <td>B+ B- AB+ AB-</td>
-        <td>B- O-</td>
-      </tr>
-      <tr>
-        <td style={bStyle}>AB-</td>
-        <td>AB+ AB-</td>
-        <td>AB- A- B- O-</td>
-      </tr>
-</tbody>
-</table>
-</div>
-</div>
 
 
 
