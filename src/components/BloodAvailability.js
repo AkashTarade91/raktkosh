@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Form,  Button} from 'react-bootstrap'
 import '../components/css/common.css'
+import commonService from '../service/common.service'
 class BloodAvailability extends Component {
   constructor(props) {
     super(props)
@@ -19,7 +20,7 @@ class BloodAvailability extends Component {
 
   componentDidMount() {
     if (this.state.statesdata.length === 0) {
-      axios.get('http://localhost:8080/commondata/statesAndDistrict')
+      commonService.getAllStates()
         .then(response => {
           console.log("componentDidMount");
           console.log(response.data);
@@ -36,9 +37,20 @@ class BloodAvailability extends Component {
 
   stateHandler(e) {
     console.log(e.target.value);
-    if (e.target.value >= 0) {
-      this.setState({ districtsdata: this.state.statesdata[e.target.value - 1].districts });
-      console.log(this.state.districtsdata);
+    const stateId=e.target.value;
+    if (stateId >= 0) {
+      commonService.getAllDistrictsByStateId(stateId)
+        .then(response => {
+          console.log("componentDidMount");
+          console.log(response.data);
+          this.setState({ districtsdata: response.data })
+          console.log(this.state.districtsdata);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      // this.setState({ districtsdata: this.state.statesdata[e.target.value - 1].districts });
+      // console.log(this.state.districtsdata);
     }
     else {
       this.setState({ districtsdata: [] });

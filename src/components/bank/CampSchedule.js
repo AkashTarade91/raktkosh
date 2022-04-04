@@ -73,12 +73,12 @@ class CampSchedule extends Component {
 
         return (
             <div>
-                <div className="container bg-dark text-white text-center">
+                <div className="container bg-dark text-white text-center ">
                     <div className="row">
                         <div className="col ">
 
                         </div>
-                        <div className="col-10 m-3">
+                        <div className="col-12 m-3">
                             <h1>Camp Schedule</h1>
                         </div>
                         <div className="col ">

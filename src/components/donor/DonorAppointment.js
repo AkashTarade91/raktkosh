@@ -473,10 +473,6 @@ class DonorAppointment extends Component {
         newErrors.mobile = `length=${mobile.length}, Length must be 10 digit !`
         flag = false;
       }
-      // if ( !(/^(?=.*[a-zA-Z]).*$/.test(password)))  {
-      //   newErrors.password = `cannot contain letter !`
-      //   flag=false;
-      // }
     }
 
 
@@ -700,12 +696,12 @@ class DonorAppointment extends Component {
       //this.districtValidation(newErrors,districtId)
     }
 
-    if (cityId === '') {
-      newErrors.cityId = ' Cannot be blank!'
-    }
-    else {
-      //this.cityValidation=(newErrors,cityId)
-    }
+    // if (cityId === '') {
+    //   newErrors.cityId = ' Cannot be blank!'
+    // }
+    // else {
+    //   //this.cityValidation=(newErrors,cityId)
+    // }
     console.log(parseInt(mobile) == NaN);
 
     this.mobileValidation(newErrors, mobile)

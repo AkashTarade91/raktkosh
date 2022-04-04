@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Form, Button} from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import axios from 'axios'
+import commonService from '../../service/common.service';
+import donorService from '../../service/donorService';
 import validator from 'validator'
 class DonorRegister extends Component {
     constructor(props) {
@@ -271,13 +273,12 @@ class DonorRegister extends Component {
           isValidCitytId:''
         });
         const stateId=e.target.value;
-        
         this.stateValidation(newErrors,stateId)
         
         
         
       }
-
+    
       stateValidation=(newErrors,stateId)=>{
         console.log(stateId);
         let flag=true;
@@ -287,7 +288,8 @@ class DonorRegister extends Component {
         }
         else{
           if(stateId>=0){
-              axios.get('http://localhost:8080/commondata/districts/'+stateId)
+              //axios.get('http://localhost:8080/commondata/districts/'+stateId)
+              commonService.getAllDistrictsByStateId(stateId)
               .then(response=>{
               console.log("componentDidMount");
               console.log(response.data);
@@ -297,11 +299,6 @@ class DonorRegister extends Component {
               .catch(error=>{
                   console.log(error);
               })
-
-
-
-
-
           }
           else{
             newErrors.stateId = ' Cannot be blank!'
@@ -317,13 +314,12 @@ class DonorRegister extends Component {
         else{
           this.setState({
             errors: newErrors,
-            isValidStateId:'',
-            districtsdata:[],
             districtId:'',
             citiesdata:[],
             cityId:'',
             isValidDistrictId:'',
-            isValidCitytId:''
+            isValidCitytId:'',
+            isValidStateId:''
          })
         }
       }
@@ -337,15 +333,8 @@ class DonorRegister extends Component {
           isValidDistrictId:'',
           isValidCitytId:''
         });
-        
         const newErrors = {};
         const districtId=e.target.value;
-        this.districtValidation(newErrors, districtId)
-        //http://localhost:8080/commondata/cities/39
-        
-      }
-
-      districtValidation=(newErrors,districtId)=>{
         let flag=true;
         if ( districtId === '' ) {
           newErrors.districtId = ' Cannot be blank!'
@@ -353,8 +342,9 @@ class DonorRegister extends Component {
         }
         else{
           if(districtId>=0){
-
-              axios.get('http://localhost:8080/commondata/cities/'+districtId)
+    
+              //axios.get('http://localhost:8080/commondata/cities/'+districtId)
+              commonService.getAllCitiesByDistricId(districtId)
               .then(response=>{
               this.setState({citiesdata:response.data})
               console.log(this.state.citiesdata);
@@ -365,7 +355,7 @@ class DonorRegister extends Component {
             
           }
           else{
-            this.setState({districtsdata:[]});
+            
             newErrors.districtId = ' Cannot be blank!'
             flag=false;
           }
@@ -380,16 +370,15 @@ class DonorRegister extends Component {
           this.setState({
             errors: newErrors,
             citiesdata:[],
-            cityId:'',
-            isValidDistrictId:'',
+            citytd:'',
             isValidCitytId:''
          })
         }
       }
-
+    
       
-
-
+    
+    
       cityHandler(e){
         this.setState({ 
           [e.target.name] : e.target.value ,
@@ -397,11 +386,12 @@ class DonorRegister extends Component {
           isValidCitytId:''
         });
         const newErrors = {};
-        this.cityValidation(newErrors,e.target.value)
+        const cityId=e.target.value;
+        this.cityValidation(newErrors,cityId)
         //http://localhost:8080/commondata/cities/39
         
       }
-
+    
       cityValidation=(newErrors,cityId)=>{
         let flag=true;
         if ( cityId === '' ) {
@@ -409,13 +399,11 @@ class DonorRegister extends Component {
           flag=false;
         }
         else{
-          if(cityId>=0){
-
-          }
-          else{
+          if(cityId<0){
             newErrors.cityId = ' Cannot be blank!'
             flag=false;
           }
+         
         }
         
         if(flag){
@@ -429,6 +417,7 @@ class DonorRegister extends Component {
          })
         }
       }
+    
 
       mobileHandler = event => {
         this.setState({ 
@@ -662,15 +651,38 @@ class DonorRegister extends Component {
           this.genderValidation(newErrors,gender)
         }
         
-        if ( email === '' ) {
+        if (email === '') {
           newErrors.email = ' Cannot be blank!'
-          
+   
         }
-        else
-        if ( !(validator.isEmail(email)) ) {
-          newErrors.email = ' Invalid Email!'
-         
+        else{
+         if (!(validator.isEmail(email))) {
+           newErrors.email = ' Invalid Email!'
+         }
+         else{
+           donorService.getVerifyEmail(email)
+         .then(response=>{
+           console.log("componentDidMount");
+          console.log(response);
+          //this.setState({citiesdata:response.data})
+          console.log(response.data);
+          if(response.data){
+            console.log("inside");
+              newErrors.email = 'Email Already Registered!'
+              this.setState({
+               isValidEmail: false
+            })
+            }
+          })
+          .catch(error=>{
+             console.log(error);
+          })
+         }
         }
+   
+        
+
+
         const vstateId=stateId;
         if ( vstateId === '' ) {
           newErrors.stateId = ' Cannot be blank!'
@@ -693,8 +705,37 @@ class DonorRegister extends Component {
           //this.cityValidation=(newErrors,vcityId)
         }
        
-
-        this.mobileValidation(newErrors,mobile)
+        if (mobile === '') {
+          newErrors.mobile = ' Cannot be blank!'
+        }
+        else{
+          if (!(mobile.length === 10)) {
+            newErrors.mobile = `length=${mobile.length}, Length must be 10 digit !`
+          }
+         else{
+           //
+           //axios.get(`http://localhost:8080/donor/verifymobile/${mobile}`)
+           donorService.getVerifyMobile(mobile)
+         .then(response=>{
+           console.log("componentDidMount");
+          console.log(response);
+          //this.setState({citiesdata:response.data})
+          console.log(response.data);
+          if(response.data){
+            console.log("inside");
+              newErrors.mobile = 'Number Already Registered!'
+              this.setState({
+               isValidMoblie: false
+            })
+            }
+          })
+          .catch(error=>{
+             console.log(error);
+          })
+    
+         }
+        }
+       // this.mobileValidation(newErrors,mobile)
         
         this.passwordValidation(newErrors,password)
 
@@ -712,7 +753,8 @@ class DonorRegister extends Component {
         if(this.state.statesdata.length=== 0){
           
           //http://localhost:8080/commondata/cities/39
-          axios.get('http://localhost:8080/commondata/statesAndDistrict')
+          //axios.get('http://localhost:8080/commondata/statesAndDistrict')
+          commonService.getAllStates()
           .then(response=>{
             console.log("componentDidMount");
             console.log(response.data);
@@ -769,7 +811,7 @@ class DonorRegister extends Component {
 
     return (
 
-        <div className="container bg-dark text-white text-center col-9 font-weight-bold">
+        <div className="container bg-dark text-white text-center col-11 font-weight-bold">
             <div className="row">
                 <div className="col ">
                 </div>
