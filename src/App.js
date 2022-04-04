@@ -11,7 +11,7 @@ import DonorRegister from './components/donor/DonorRegister';
 import DonorAppointment from './components/donor/DonorAppointment';
 import BloodStock from './components/bank/BloodStock';
 import CampSchedule from './components/bank/CampSchedule';
-// import CampRegister from './components/bank/CampRegister';
+import CampRegister from './components/bank/CampRegister';
 import Login from './components/bank/Login';
 import Register from './components/bank/Register';
 import { FAQ } from './components/FAQ';
@@ -44,13 +44,13 @@ class App extends Component {
         <Route path='/donor/register' element={<DonorRegister/>}></Route>
         <Route path='/donor/donorAppointment' element={<DonorAppointment/>}></Route>
         <Route path='/bank/CampSchedule' element={<CampSchedule/>}></Route> 
+        <Route path='/bank/CampRegister' element={<CampRegister/>}></Route> 
 
         <Route path='/bank/bloodStock' element={<BloodStock/>}></Route>
 
   
         <Route path='/bank/login' element={<Login/>}></Route>
         <Route path='/bank/register' element={<Register/>}></Route>
-        {/* <Route path='/bank/CampRegister'  element={<CampRegister/>}></Route>  */}
       </Routes>
       </>
     )
