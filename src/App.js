@@ -14,6 +14,7 @@ import CampSchedule from './components/bank/CampSchedule';
 import CampRegister from './components/bank/CampRegister';
 import Login from './components/bank/Login';
 import Register from './components/bank/Register';
+import BankHome from './components/bank/BankHome';
 import { FAQ } from './components/FAQ';
 import React, { Component } from 'react'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -43,8 +44,9 @@ class App extends Component {
         <Route path='/donor/login' element={<DonorLogin/>}></Route>
         <Route path='/donor/register' element={<DonorRegister/>}></Route>
         <Route path='/donor/donorAppointment' element={<DonorAppointment/>}></Route>
-        <Route path='/bank/CampSchedule' element={<CampSchedule/>}></Route> 
-        <Route path='/bank/CampRegister' element={<CampRegister/>}></Route> 
+        <Route path='/bank/campSchedule' element={<CampSchedule/>}></Route> 
+        <Route path='/bank/campRegister' element={<CampRegister/>}></Route> 
+        <Route path='/bank/bankHome' element={<BankHome/>}></Route> 
 
         <Route path='/bank/bloodStock' element={<BloodStock/>}></Route>
 
