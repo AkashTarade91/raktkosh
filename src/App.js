@@ -19,11 +19,15 @@ import Register from './components/bank/Register';
 import BankHome from './components/bank/BankHome';
 
 import AdminHome from './components/admin/AdminHome';
-
+import { BrowserRouter } from 'react-router-dom';
 import { FAQ } from './components/FAQ';
 import React, { Component } from 'react'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
+import {BasicTable} from './components/admin/table/BasicTable'
+import {SortingTable} from './components/admin/table/SortingTable'
+import {FilteringTable} from './components/admin/table/FilteringTable'
+import {PaginationTable} from './components/admin/table/PaginationTable'
+import {RowSelection} from './components/admin/table/RowSelection'
 class App extends Component {
   
 
@@ -33,10 +37,7 @@ class App extends Component {
     return (
       <>
       <Navibar/>
-     
-      {
-        
-      }
+      <BrowserRouter>
       <Routes>
       <Route path='/' element={<Home/>}></Route>
       <Route path='/faq' element={<FAQ/>}></Route>
@@ -57,8 +58,15 @@ class App extends Component {
         <Route path='/bank/login' element={<Login/>}></Route>
         <Route path='/bank/register' element={<Register/>}></Route>
 
+        <Route path='/admin/basictable' element={<BasicTable/>}></Route>
+        <Route path='/admin/sortingtable' element={<SortingTable/>}></Route>
+        <Route path='/admin/filteringtable' element={<FilteringTable/>}></Route>
+        <Route path='/admin/paginationtable' element={<PaginationTable/>}></Route>
+        <Route path='/admin/rowselection' element={<RowSelection/>}></Route>
+
         <Route path='/admin/adminHome' element={<AdminHome/>}></Route>
       </Routes>
+      </BrowserRouter>
       </>
     )
   }
