@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Form,  Button} from 'react-bootstrap'
 import '../components/css/common.css'
 import commonService from '../service/common.service'
+import bankService from '../service/bankService'
 class BloodAvailability extends Component {
   constructor(props) {
     super(props)

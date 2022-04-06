@@ -16,10 +16,12 @@ class AdminHome extends Component {
             selectedArray:[]
         };
         this.requestacceptHandler = this.requestacceptHandler.bind(this);
+        this.requestRejectHandler=this.requestRejectHandler.bind(this);
     }
     
 
     componentDidMount() {
+        
         
                 bankService.getAllPendingReqBank()
                 .then((response) => {
@@ -37,7 +39,7 @@ class AdminHome extends Component {
         
     }
     requestacceptHandler = (event) => {
-    
+        
         const {selectedArray} = this.state;
         console.log(event.target.value);
         if(selectedArray.length>0){
@@ -52,30 +54,50 @@ class AdminHome extends Component {
             console.log(response.data);
             //this.setState({ districtsdata: response.data })
             //console.log(this.state.districtsdata);
-
-          })
-          .catch(error => {
-            console.log(error);
-          })
-
-        }
-        else if(event.target.value==="reject"){
-            console.log("reject fun");
-            adminService.rejectBankRequest(selectedArray) 
-            .then(response => {
-              console.log("componentDidMount");
-              console.log(response.data);
+             })
+            .catch(error => {
+                console.log(error);
             })
-            // .catch(error => {
-            //   console.log(error);
-            // })
         }
         }
-        alert("button was clicked");
+        else{
+            alert("preventDefault was clicked");
+            event.preventDefault();
+        }
         
         
-          event.preventDefault();
+        
+          
     }
+
+    requestRejectHandler = (event) => {
+        console.log("reject fun");
+            alert("button was clicked");
+            const {selectedArray} = this.state;
+            console.log(event.target.value);
+            if(selectedArray.length>0){
+            console.log(selectedArray);
+            const myJSON=JSON.stringify(selectedArray)
+            console.log(myJSON);
+             if(event.target.value==="reject"){
+                console.log("reject fun");
+                alert("button was clicked");
+                adminService.rejectBankRequest(selectedArray) 
+                .then(response => {
+                  console.log("componentDidMount");
+                  console.log(response.data);
+                })
+                .catch(error => {
+                  console.log(error);
+                })
+            }
+            }
+            else{
+                alert("preventDefault was clicked");
+                event.preventDefault();
+            }        
+    }
+    
 
     // stateHandler(e) {
     //     console.log(e.target.value);
@@ -197,18 +219,7 @@ class AdminHome extends Component {
                 Header:'Component Facility',
                 Footer:'Component Facility',
                 accessor:'facility'
-            }
-            // {
-            //     Header:'District',
-            //     Footer:'District',
-            //     accessor:'city.district',
-            //     Cell: ({ cell }) => {
-            //         console.log(cell.value.name)
-            //         //return cell.value.name
-            //     }   
-            // }
-        
-        
+            }    
                 ]
 
                 
@@ -229,25 +240,22 @@ class AdminHome extends Component {
                         </div>
                          <div className="row">
                             <div className="col "></div>
-                            <div className="col-4 m-5">
+                            <div className="col-4 m-2">
                                 <Table striped bordered hover variant="dark" className="mb-3">
                                     <thead>
                                         <tr>
-                                            
                                             <th colSpan={2} className="col-4">Action on BloodBank Requests</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            
                                             <td><Button variant="btn btn-outline-success"
                                             type="submit" value="accept"
-                                            onClick={this.requestacceptHandler}
-                                            >
+                                            onClick={this.requestacceptHandler}>
                                                 Accept{" "}
                                             </Button></td>
                                             <td><Button variant="btn btn-outline-danger" type="submit"
-                                            value="reject">
+                                            value="reject" onClick={this.requestRejectHandler}>
                                                 Reject{" "}
                                             </Button></td>
                                         </tr>
@@ -257,7 +265,6 @@ class AdminHome extends Component {
                             <div className="col "></div>
                         </div> 
                     </Form>
-                    
                 </div>
                 <div>
                     <PaginationTable MOCK_DATA={statesdata} COLUMNS={COLUMNS}/>

@@ -840,7 +840,36 @@ class Register extends Component {
 
      this.personNameValidation(newErrors, personName)
 
-     this.licenceValidation(newErrors, licence)
+     //this.licenceValidation(newErrors, licence)
+     if (licence === '') {
+      newErrors.licence = ' Cannot be blank!'
+    }
+    else{
+      if (!(licence.length === 10)) {
+        newErrors.licence = `length=${licence.length}, Length must be 10 digit !`
+      }
+     else{
+       bankService.getVerifyLicence(licence)
+     .then(response=>{
+       console.log("componentDidMount");
+      console.log(response);
+      //this.setState({citiesdata:response.data})
+      console.log(response.data);
+      if(response.data){
+        console.log("inside");
+          newErrors.licence = 'Number Already Registered!'
+          this.setState({
+           isValidLicence: false
+        })
+        }
+      })
+      .catch(error=>{
+         console.log(error);
+      })
+
+     }
+    }
+
 
 
      if (email === '') {
@@ -978,8 +1007,9 @@ class Register extends Component {
       const city={
         "id":cityId
       }
+      const status='PENDING';
       const bank = { bankName, parentHospital, shortName, category, licence, personName, email, 
-        contact, city, facility, beds, website, password, address }
+        contact, city, facility, beds, website, password, address,status }
       console.log(bank);
        axios.post('http://localhost:8080/bank/register', bank)
             .then(response=>{

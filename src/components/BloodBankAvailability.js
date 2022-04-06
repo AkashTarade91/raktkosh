@@ -4,12 +4,15 @@ import axios from 'axios'
 import { Form,  Button} from 'react-bootstrap'
 import '../components/css/common.css'
 import commonService from '../service/common.service'
+import bankService from '../service/bankService'
+import { PaginationTable } from './admin/table/PaginationTable'
 
 class BloodBankAvailability extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      MOCK_DATA:[],
       statesdata: [],
       districtsdata: [],
       citiesdata: [],
@@ -32,9 +35,6 @@ class BloodBankAvailability extends Component {
 
   componentDidMount() {
     if (this.state.statesdata.length === 0) {
-
-      //http://localhost:8080/commondata/cities/39
-      //axios.get('http://localhost:8080/commondata/allstates')
       commonService.getAllStates()
         .then(response => {
           console.log("componentDidMount");
@@ -92,6 +92,9 @@ class BloodBankAvailability extends Component {
               console.log(error);
           })
       }
+      else if(stateId=== "-2"){
+
+      }
       else{
         newErrors.stateId = ' Cannot be blank!'
         flag=false;
@@ -146,6 +149,9 @@ class BloodBankAvailability extends Component {
           })
         
       }
+      else if(districtId=== "-2"){
+
+      }
       else{
         
         newErrors.districtId = ' Cannot be blank!'
@@ -191,7 +197,10 @@ class BloodBankAvailability extends Component {
       flag=false;
     }
     else{
-      if(cityId<0){
+      if(cityId=== "-2"){
+
+      }
+      else if(cityId<0){
         newErrors.cityId = ' Cannot be blank!'
         flag=false;
       }
@@ -229,7 +238,7 @@ class BloodBankAvailability extends Component {
     if (cityId == '') {
       newErrors.cityId = ' Cannot be blank!'
     }
-   
+   alert(stateId+' '+districtId+' '+cityId);
     console.log(newErrors);
     return newErrors
   }
@@ -258,25 +267,77 @@ class BloodBankAvailability extends Component {
       
       const  {  cityId, stateId, districtId} = this.state;
       console.log(cityId);
-      const city={
-        "id":cityId
-      }
+      
+        if(stateId==='-2'){
+          bankService.getAllAcceptedBank()
+          .then((response) => {
+              console.log("componentDidMount");
+              console.log(response.data);
+              this.setState({ MOCK_DATA: response.data });
+              //console.log(this.state.statesdata);
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+    
+        }
+        else{
+          if(districtId==='-2'){
+            bankService.getAllAcceptedStateBank(stateId)
+            .then((response) => {
+                console.log("componentDidMount");
+                console.log(response.data);
+                this.setState({ MOCK_DATA: response.data });
+                //console.log(this.state.statesdata);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+      
+          }
+          else{
+            if(cityId==='-2'){
+              bankService.getAllAcceptedBankByDistrict(districtId)
+              .then((response) => {
+                  console.log("componentDidMount");
+                  console.log(response.data);
+                  this.setState({ MOCK_DATA: response.data });
+                  //console.log(this.state.statesdata);
+              })
+              .catch((error) => {
+                  console.log(error);
+              });
+        
+            }
+            else{
+              bankService.getAllAcceptedBankByCity(cityId)
+              .then((response) => {
+                  console.log("componentDidMount");
+                  console.log(response.data);
+                  this.setState({ MOCK_DATA: response.data });
+                  //console.log(this.state.statesdata);
+              })
+              .catch((error) => {
+                  console.log(error);
+              });
+              
+            }
+            
+          }
 
-      // const bank = { bankName, parentHospital, shortName, category, licence, personName, email, 
-      //   contact, city, facility, beds, website, password, address }
-      // console.log(bank);
-      //  axios.post('http://localhost:8080/bank/register', bank)
-      //       .then(response=>{
-      //        console.log("componentDidMount");
-      //       console.log(response);
-      //       //this.setState({citiesdata:response.data})
-      //       console.log(response.data);
-      //       })
-      //       .catch(error=>{
-      //          console.log(error);
-      //       })
+        }
+
+      
 
     }
+
+    
+        
+        
+     
+      console.log("out");
+
+
   }
 
 
@@ -287,6 +348,96 @@ class BloodBankAvailability extends Component {
 
 
   render() {
+    const {MOCK_DATA} =this.state
+
+    const COLUMNS=[
+      // {
+      //     Header:' ',
+      //     Footer:' ',
+      //     accessor:'',
+      //     Cell: ({ cell }) => {
+      //         return <input name="selector[]" id="ad_Checkbox1" className="ads_Checkbox" type="checkbox" 
+      //         onClick={(e)=>{
+      //             console.log(e.target.checked);
+      //             console.log(cell.row.allCells[1].value)
+      //             if(e.target.checked)
+      //                selectedArray.push(cell.row.allCells[1].value)
+      //             else{
+      //                 var myIndex = selectedArray.indexOf(cell.row.allCells[1].value);
+      //                 console.log(myIndex);
+      //                 if (myIndex !== -1) {
+      //                     selectedArray.splice(myIndex, 1);
+      //                 }
+      //                 console.log(selectedArray)
+
+      //             }
+                  
+                   
+                  
+      //         }} />
+      //     }
+      // },
+      {
+          Header:'Email',
+          Footer:'Email',
+          accessor:'email'
+      },
+      {
+          Header:'Blood Bank Name',
+          Footer:'Blood Bank Name',
+          accessor:'bankName'
+      },
+      {
+          Header:'Parent Hospital',
+          Footer:'Parent Hospital',
+          accessor:'parentHospital'
+      },
+      {
+          Header:'Short Name',
+          Footer:'Short Name',
+          accessor:'shortName'
+      },
+      {
+          Header:'Category',
+          Footer:'Category',
+          accessor:'category'
+      },
+      {
+          Header:'Licence',
+          Footer:'Licence',
+          accessor:'licence',
+          // Cell: ({ cell }) => (
+          //     <button value={cell.row.values.name} onClick={(e)=>{console.log(cell.row.allCells[0].value);}}>
+          //       {cell.row.values.name}
+          //     </button>
+          //   )
+      },
+      {
+          Header:'Person Name',
+          Footer:'Person Name',
+          accessor:'personName'
+      },
+      {
+          Header:'Contact',
+          Footer:'Contact',
+          accessor:'contact'
+      },
+      {
+          Header:'City',
+          Footer:'City',
+          accessor:'city',
+          Cell: ({ cell }) => {
+              console.log(cell.value.district.name)
+              return cell.value.name//<div> {cell.value.name}, {cell.value.district.name}, {cell.value.district.state.name}</div>
+          }   
+      },
+      {
+          Header:'Component Facility',
+          Footer:'Component Facility',
+          accessor:'facility'
+      }    
+          ]
+
 
     const {
         isValidStateId,  isValidDistrictId,  isValidCitytId,
@@ -325,7 +476,8 @@ class BloodBankAvailability extends Component {
 
     return (
       <div>
-        <div className="container bg-dark text-white text-center">
+        <div className=" bg-dark text-white text-center mt-4">
+        <div className="container bg-dark text-white text-center mt-4">
           <div className="row">
             <div className="col ">
 
@@ -344,6 +496,7 @@ class BloodBankAvailability extends Component {
                 <Form.Label>State</Form.Label>
                 <Form.Select onChange={this.stateHandler} name="stateId" isValid={isValidStateId} isInvalid={!!errors.stateId} required>
                   <option value="-1" hidden >Select State</option>
+                  <option value="-2">All</option>
                   {
                     statesList
                   }
@@ -357,6 +510,7 @@ class BloodBankAvailability extends Component {
                 <Form.Label>District</Form.Label>
                 <Form.Select name="districtId" onChange={this.districtHandler} isValid={isValidDistrictId} isInvalid={!!errors.districtId} required>
                   <option value="-1" hidden >Select District</option>
+                  <option value="-2">All</option>
                   {
                     districtsList
                   }
@@ -370,6 +524,7 @@ class BloodBankAvailability extends Component {
                 <Form.Label>City</Form.Label>
                 <Form.Select name="cityId" onChange={this.cityHandler} isValid={isValidCitytId} isInvalid={!!errors.cityId} required>
                   <option value="-1" hidden >Select City</option>
+                  <option value="-2">All</option>
                   {
                     citiesList
                   }
@@ -392,8 +547,14 @@ class BloodBankAvailability extends Component {
               </div>
             </div>
           </Form>
+          </div>
+          <div className="row">
+                    <PaginationTable
+                     MOCK_DATA={MOCK_DATA} 
+                     COLUMNS={COLUMNS}/>
+         </div>
         </div>
-
+        
 
       </div>
     )
