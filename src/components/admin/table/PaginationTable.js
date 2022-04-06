@@ -5,13 +5,14 @@ import { COLUMNS } from './columns'
 import './table.css'
 import { GlobalFilter } from './GlobalFilter'
 
-export const PaginationTable = () => {
-    const columns=useMemo(()=>COLUMNS,[])
-    const data=useMemo(()=>MOCK_DATA,[])
-
+export const PaginationTable = (props) => {
+    console.log(props);
+    const columns=useMemo(()=>props.COLUMNS,[])
+    const data=useMemo(()=> props.MOCK_DATA)
     const tableInstance=useTable({
         columns:columns,
-        data: data
+        data: data,
+        initialState:{ pageSize:5}
     },  useGlobalFilter, useSortBy, usePagination)
 
     const {getTableProps, 
@@ -35,12 +36,12 @@ export const PaginationTable = () => {
 
 
     const {globalFilter, pageIndex, pageSize} =state;
-
+    
 
   return (
       <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}/>
-        <table {...getTableProps()}>
+        <table {...getTableProps()}  >
         <thead>
             {
                 headerGroups.map((headerGroup)=>(
@@ -97,6 +98,8 @@ export const PaginationTable = () => {
         </tfoot> */}
     </table>
         <div>
+        <button type="button" className="btn btn-danger" onClick={()=> gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button>
+            <button  type="button" className="btn btn-warning" onClick={()=> previousPage()} disabled={!canPreviousPage}>Previous</button>
             <span>
                 Page{' '}
                 <strong>{pageIndex + 1} of {pageOptions.length}</strong>{' '}
@@ -113,17 +116,19 @@ export const PaginationTable = () => {
 
                 </input>
             </span>
-            <select value={pageSize} onChange={e=>{setPageSize(Number(e.target.value))}}>
+           
+            
+            <button type="button" className="btn btn-warning" onClick={()=> nextPage()} disabled={!canNextPage}>Next</button>
+            <button type="button" className="btn btn-danger" onClick={()=> gotoPage(pageCount-1)} disabled={!canNextPage}>{'>>'}</button>
+            <select value={pageSize}  onChange={e=>{setPageSize(Number(e.target.value))}}>
                 {
+                    
                     [5,10,25,50].map(pageSize=>(
                         <option key={pageSize} value={pageSize}>Show {pageSize}</option>
                     ))
                 }
+                
             </select>
-            <button onClick={()=> gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button>
-            <button onClick={()=> previousPage()} disabled={!canPreviousPage}>Previous</button>
-            <button onClick={()=> nextPage()} disabled={!canNextPage}>Next</button>
-            <button onClick={()=> gotoPage(pageCount-1)} disabled={!canNextPage}>{'>>'}</button>
         </div>
     
     </>
