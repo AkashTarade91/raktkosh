@@ -28,6 +28,7 @@ import {SortingTable} from './components/admin/table/SortingTable'
 import {FilteringTable} from './components/admin/table/FilteringTable'
 import {PaginationTable} from './components/admin/table/PaginationTable'
 import {RowSelection} from './components/admin/table/RowSelection'
+import { RowSel } from './components/admin/table/RowSel';
 class App extends Component {
   
 
@@ -63,6 +64,7 @@ class App extends Component {
         <Route path='/admin/filteringtable' element={<FilteringTable/>}></Route>
         <Route path='/admin/paginationtable' element={<PaginationTable/>}></Route>
         <Route path='/admin/rowselection' element={<RowSelection/>}></Route>
+        <Route path='/admin/rowsel' element={<RowSel/>}></Route>
 
         <Route path='/admin/adminHome' element={<AdminHome/>}></Route>
       </Routes>
