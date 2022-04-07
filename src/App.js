@@ -29,6 +29,7 @@ import {FilteringTable} from './components/admin/table/FilteringTable'
 import {PaginationTable} from './components/admin/table/PaginationTable'
 import {RowSelection} from './components/admin/table/RowSelection'
 import { RowSel } from './components/admin/table/RowSel';
+import AdminLogin from './components/admin/AdminLogin';
 class App extends Component {
   
 
@@ -66,6 +67,7 @@ class App extends Component {
         <Route path='/admin/rowselection' element={<RowSelection/>}></Route>
         <Route path='/admin/rowsel' element={<RowSel/>}></Route>
 
+        <Route path='/admin/adminLogin' element={<AdminLogin/>}></Route>
         <Route path='/admin/adminHome' element={<AdminHome/>}></Route>
       </Routes>
       </BrowserRouter>

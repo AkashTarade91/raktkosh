@@ -10,9 +10,9 @@ class Login extends Component {
             <div className="col">
 
             </div>
-            <div className="p-3 m-2 bg-secondary text-white col-5">
+            <div className="p-3 m-2 bg-dark text-white col-5">
                 <Form>
-                    <h1>Blood Bank Login</h1><br />
+                    <h1>Welcome Blood Bank</h1><br />
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />

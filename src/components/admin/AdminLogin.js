@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-class DonorLogin extends Component {
+class AdminLogin extends Component {
   render() {
     return (
       
@@ -12,7 +12,7 @@ class DonorLogin extends Component {
             </div>
             <div className="p-3 m-2 bg-dark text-white col-5">
                 <Form>
-                    <h1>Welcome Donor</h1><br />
+                    <h1>Welcome Admin</h1><br />
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />
@@ -26,7 +26,7 @@ class DonorLogin extends Component {
                         Login
                     </Button>
                     
-                    <Link to="/donor/register">
+                    <Link to="/bank/register">
                         <Button className="m-4" variant="danger">Not Registered ?</Button>
                     </Link>
                 </Form>
@@ -40,6 +40,6 @@ class DonorLogin extends Component {
   }
 }
 
-export default DonorLogin
+export default AdminLogin
 
 

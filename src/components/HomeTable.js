@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import img2 from"../images/blood.PNG";
 export class HomeTable extends Component {
@@ -13,7 +14,7 @@ export class HomeTable extends Component {
                 <img  src={img2} alt="blood" />
             </div>
             <div className="col">
-            <table className="table table-striped table-bordered text-center"  >
+            <table className="table table-hover table-dark table-bordered text-center"  >
                 <tbody>
                     <tr>
                         <th colSpan='3' style={{ backgroundColor:"red" ,color:"white" }}  >Compatible Blood Type Donors</th>
