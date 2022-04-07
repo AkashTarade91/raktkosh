@@ -6,7 +6,8 @@ toast.configure()
 
 export default function ToastDemo(props) {
     const notify = () =>{
-        toast(props.info)
+        toast.success(props.info)
+        toast.error(props.info)
     }
   return (
       <div>
