@@ -69,6 +69,7 @@ class App extends Component {
 
         <Route path='/admin/adminLogin' element={<AdminLogin/>}></Route>
         <Route path='/admin/adminHome' element={<AdminHome/>}></Route>
+        {/* <Route path='/admin/adminHome' element={sw}></Route> */}
       </Routes>
       </BrowserRouter>
       </>
