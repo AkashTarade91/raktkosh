@@ -30,6 +30,7 @@ import {PaginationTable} from './components/admin/table/PaginationTable'
 import {RowSelection} from './components/admin/table/RowSelection'
 import { RowSel } from './components/admin/table/RowSel';
 import AdminLogin from './components/admin/AdminLogin';
+import ToastDemo from './components/ToastDemo';
 class App extends Component {
   
 
@@ -69,9 +70,15 @@ class App extends Component {
 
         <Route path='/admin/adminLogin' element={<AdminLogin/>}></Route>
         <Route path='/admin/adminHome' element={<AdminHome/>}></Route>
+<<<<<<< HEAD
         {/* <Route path='/admin/adminHome' element={sw}></Route> */}
+=======
+
+        <Route path='/toastDemo' element={<ToastDemo info="Hello... KING_SH@RK"/>}></Route>
+>>>>>>> e23dde82f2273ed62f6f239e0be84acdcfc426bb
       </Routes>
       </BrowserRouter>
+      
       </>
     )
   }
