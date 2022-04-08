@@ -2,69 +2,43 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Form, Button, Table } from "react-bootstrap";
 import "../css/common.css";
+import commonService from "../../service/common.service";
+import { Navigate } from "react-router-dom";
 class BankHome extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            statesdata: [],
-            districtsdata: [],
+            bankdata: [],
+            
+            redirect:''
         };
-        this.stateHandler = this.stateHandler.bind(this);
+       // this.stateHandler = this.stateHandler.bind(this);
     }
 
     componentDidMount() {
-        if (this.state.statesdata.length === 0) {
-            axios
-                .get("http://localhost:8080/commondata/statesAndDistrict")
-                .then((response) => {
-                    console.log("componentDidMount");
-                    console.log(response.data);
-                    this.setState({ statesdata: response.data });
-                    console.log(this.state.statesdata);
+        commonService.getSessionUser()
+        .then((response) => {
+            console.log("componentDidMount");
+            console.log(response.data);
+            console.log(window.localStorage.getItem("loginUserEmail"))
+            if(response.data!==null){
+                this.setState({
+                    redirect:false
                 })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
+            }
+            
+        })
+        .catch((error) => {
+            console.log(error);
+        });
         console.log("out");
     }
 
-    stateHandler(e) {
-        console.log(e.target.value);
-        if (e.target.value >= 0) {
-            this.setState({
-                districtsdata: this.state.statesdata[e.target.value - 1].districts,
-            });
-            console.log(this.state.districtsdata);
-        } else {
-            this.setState({ districtsdata: [] });
-        }
-    }
+   
 
     render() {
-        const { statesdata, districtsdata } = this.state;
-        console.log(districtsdata);
-        let statesList =
-            statesdata.length > 0 &&
-            statesdata.map((item, i) => {
-                return (
-                    <option key={i} value={item.id}>
-                        {item.name}
-                    </option>
-                );
-            }, this);
-
-        let districtsList =
-            districtsdata.length > 0 &&
-            districtsdata.map((item, i) => {
-                return (
-                    <option key={i} value={item.id}>
-                        {item.name}
-                    </option>
-                );
-            }, this);
-
+        
         return (
             <div>
                 <div className="container bg-dark text-white text-center mt-4">

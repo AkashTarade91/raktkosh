@@ -5,6 +5,9 @@ import axios from 'axios'
 import validator from 'validator'
 import commonService from '../../service/common.service'
 import bankService from '../../service/bankService';
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { Navigate } from "react-router-dom";
 class Register extends Component {
   constructor(props) {
     super(props)
@@ -49,6 +52,7 @@ class Register extends Component {
       isValidConfirmPassword: '',
       address: '',
       isValidAddress: '',
+      redirect:'',
       errors: {
       }
     };
@@ -1015,8 +1019,11 @@ class Register extends Component {
             .then(response=>{
              console.log("componentDidMount");
             console.log(response);
+            
             //this.setState({citiesdata:response.data})
             console.log(response.data);
+            toast.success("Register Successfully");
+            this.setState({ redirect: "/login" });
             })
             .catch(error=>{
                console.log(error);
@@ -1083,7 +1090,9 @@ class Register extends Component {
         )
       }, this);
 
-
+      if (this.state.redirect) {
+        return  <Navigate to={this.state.redirect} />
+      }
     return (
 
       <div className="container bg-dark text-white text-center col-11 font-weight-bold">

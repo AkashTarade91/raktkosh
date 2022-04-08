@@ -36,7 +36,6 @@ class App extends Component {
 
 
   render() {
-  
     return (
       <>
       <Navibar/>
@@ -58,7 +57,7 @@ class App extends Component {
         <Route path='/bank/campRegister' element={<CampRegister/>}></Route> 
         <Route path='/bank/bankHome' element={<BankHome/>}></Route> 
         <Route path='/bank/bloodStock' element={<BloodStock/>}></Route>
-        <Route path='/bank/login' element={<Login/>}></Route>
+        <Route path='/login' element={<Login/>}></Route>
         <Route path='/bank/register' element={<Register/>}></Route>
 
         <Route path='/admin/basictable' element={<BasicTable/>}></Route>
@@ -69,13 +68,12 @@ class App extends Component {
         <Route path='/admin/rowsel' element={<RowSel/>}></Route>
 
         <Route path='/admin/adminLogin' element={<AdminLogin/>}></Route>
-        <Route path='/admin/adminHome' element={<AdminHome/>}></Route>
-<<<<<<< HEAD
-        {/* <Route path='/admin/adminHome' element={sw}></Route> */}
-=======
+        
+          <Route path='/admin/adminHome' element={<AdminHome/>}></Route>
+
+        
 
         <Route path='/toastDemo' element={<ToastDemo info="Hello... KING_SH@RK"/>}></Route>
->>>>>>> e23dde82f2273ed62f6f239e0be84acdcfc426bb
       </Routes>
       </BrowserRouter>
       

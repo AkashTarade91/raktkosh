@@ -5,6 +5,8 @@ import "../css/common.css";
 import bankService from "../../service/bankService";
 import adminService from "../../service/adminService";
 import { PaginationTable } from "./table/PaginationTable";
+import commonService from "../../service/common.service";
+import { Navigate } from "react-router-dom";
 //import {selectedArray} from './table/columns/selectedArray'
 class AdminHome extends Component {
     constructor(props) {
@@ -13,7 +15,8 @@ class AdminHome extends Component {
         this.state = {
             statesdata: [],
             districtsdata: [],
-            selectedArray:[]
+            selectedArray:[],
+            redirect:null
         };
         this.requestacceptHandler = this.requestacceptHandler.bind(this);
         this.requestRejectHandler=this.requestRejectHandler.bind(this);
@@ -21,7 +24,17 @@ class AdminHome extends Component {
     
 
     componentDidMount() {
-        
+        console.log(window.localStorage.getItem("loginUserEmail"))
+        commonService.getSessionUser()
+                .then((response) => {
+                    console.log("componentDidMount");
+                    console.log(response.data);
+                    
+                    //console.log(this.state.statesdata);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         
                 bankService.getAllPendingReqBank()
                 .then((response) => {
@@ -223,7 +236,9 @@ class AdminHome extends Component {
                 ]
 
                 
-
+        if (this.state.redirect) {
+            return  <Navigate to={this.state.redirect} />
+        }
 
         return (
             

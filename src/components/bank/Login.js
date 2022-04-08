@@ -4,7 +4,13 @@ import { Link } from "react-router-dom";
 import axios from 'axios'
 import validator from 'validator'
 import commonService from '../../service/common.service';
-import swal from 'bootstrap-sweetalert';
+import { useHistory } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+
+
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import AdminHome from '../admin/AdminHome';
 
 class Login extends Component {
     constructor(props) {
@@ -19,12 +25,12 @@ class Login extends Component {
           
           password: '',
           isValidPassword: '',
-          
+          redirect: null,
           errors: {
           }
         };
     
-    
+        //const history = useHistory();
         
         this.handleSubmit = this.handleSubmit.bind(this);
         this.emailHandler = this.emailHandler.bind(this);
@@ -125,12 +131,14 @@ class Login extends Component {
            console.log(response);
            //this.setState({citiesdata:response.data})
            console.log(response.data);
+           
            if(response.data){
             this.setState({
                 isValidEmail: ''
              })
              console.log("inside");
                newErrors.email = 'Email Not Registered!'
+               toast.error('Email Not Registered!')
                this.setState({
                 isValidEmail: false
              })
@@ -175,19 +183,35 @@ class Login extends Component {
         }
         else{
           event.preventDefault();
-          
+          //let history = useHistory();
           const  {  email,  password, } = this.state;
           console.log(email+" "+  password);
-        //    axios.post('http://localhost:8080/bank/register', bank)
-        //         .then(response=>{
-        //          console.log("componentDidMount");
-        //         console.log(response);
+           commonService.getUserLogin(email,password)
+                .then(response=>{
+                 console.log("componentDidMount");
+                console.log(response);
+                if(response.data.role==='BANK'){
+                    toast.success("Welcome Bank");
+                    this.setState({ redirect: "/bank/bankHome" });
+                    window.localStorage.setItem("loginUserEmail",response.data.email)
+                    window.localStorage.setItem("loginUserRole",response.data.role)
+                }
+                else if(response.data.role==='ADMIN'){
+                    toast.success("Welcome ADMIN");
+                    
+                    this.setState({ redirect: "/admin/adminHome" });
+                    window.localStorage.setItem("loginUserEmail",response.data.email)
+                    window.localStorage.setItem("loginUserRole",response.data.role)
+                }
+                else{
+                  toast.error("Login Failed ... Try Again");
+                }
                 
-        //         console.log(response.data);
-        //         })
-        //         .catch(error=>{
-        //            console.log(error);
-        //         })
+                console.log(response.data);
+                })
+                .catch(error=>{
+                   console.log(error);
+                })
     
         }
       }
@@ -200,6 +224,9 @@ class Login extends Component {
 
     const {    isValidEmail,  isValidPassword, errors  } = this.state;
     //swal("Here's a message!");
+    if (this.state.redirect) {
+        return  <Navigate to={this.state.redirect} />
+      }
     return (
       
         <div className="container">
