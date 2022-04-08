@@ -118,7 +118,7 @@ class StockUpdate extends Component {
                             </div>
                             <div className="col m-4">
                                 <Link to="/bank/bloodStock">
-                                    <Button variant="primary" type="submit" >Update </Button>
+                                    <Button variant="success" type="submit" >Save </Button>
                                 </Link>
                             </div>
                             <div className="col ">
