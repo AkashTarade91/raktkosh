@@ -14,6 +14,10 @@ const getAllDistrictsByStateId = (stateId) => {
     return httpClient.get(`http://localhost:8080/commondata/cities/${districtId}`);
   };
 
+  const getVerifyUserEmail = (email) => {
+    return httpClient.get(`http://localhost:8080/commondata/verifyemail/${email}`);
+  };
+
 // const create = (data) => {
 //   return httpClient.post('', data);
 // };
@@ -29,4 +33,4 @@ const getAllDistrictsByStateId = (stateId) => {
 // const remove = (id) => {
 //   return httpClient.delete(`/${id}`);
 // };
-export default { getAllStates,getAllDistrictsByStateId, getAllCitiesByDistricId };
+export default { getAllStates,getAllDistrictsByStateId, getAllCitiesByDistricId, getVerifyUserEmail };
