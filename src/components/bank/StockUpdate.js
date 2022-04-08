@@ -9,10 +9,16 @@ class StockUpdate extends Component {
 
         this.state = {
             statesdata: [],
-            districtsdata: []
+            districtsdata: [],
+            apositive:sessionStorage.getItem("apositive"),
+            anegative:sessionStorage.getItem("anegative"),
+            bpositive:sessionStorage.getItem("bpositive"),
+            bnegative:sessionStorage.getItem("bnegative"),
+            abPositive:sessionStorage.getItem("abPositive"),
+            opositive:sessionStorage.getItem("opositive"),
+            onegative:sessionStorage.getItem("onegative"),
         }
-        this.stateHandler = this.stateHandler.bind(this)
-
+        this.updateHandler=this.updateHandler.bind(this)
 
     }
 
@@ -34,41 +40,17 @@ class StockUpdate extends Component {
 
     }
 
-    stateHandler(e) {
-        console.log(e.target.value);
-        if (e.target.value >= 0) {
-            this.setState({ districtsdata: this.state.statesdata[e.target.value - 1].districts });
-            console.log(this.state.districtsdata);
-        }
-        else {
-            this.setState({ districtsdata: [] });
-        }
-
+    updateHandler=()=>{
+        const {  apositive } = this.state;
+        console.log(apositive);
     }
+
 
 
     render() {
 
-        const { statesdata, districtsdata } = this.state;
-        console.log(districtsdata);
-        let statesList = statesdata.length > 0
-            && statesdata.map((item, i) => {
-                return (
-
-                    <option key={i} value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-        let districtsList = districtsdata.length > 0
-            && districtsdata.map((item, i) => {
-                return (
-
-                    <option key={i} value={item.id}>{item.name}</option>
-                )
-            }, this);
-
-
-
+        const { statesdata, districtsdata, apositive } = this.state;
+        
 
 
         return (
@@ -101,14 +83,14 @@ class StockUpdate extends Component {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td contentEditable={true} suppressContentEditableWarning={true}>10</td>
-                                    <td contentEditable={true} suppressContentEditableWarning={true}>10</td>
-                                    <td contentEditable={true} suppressContentEditableWarning={true}>10</td>
-                                    <td contentEditable={true} suppressContentEditableWarning={true}>10</td>
-                                    <td contentEditable={true} suppressContentEditableWarning={true}>10</td>
-                                    <td contentEditable={true} suppressContentEditableWarning={true}>10</td>
-                                    <td contentEditable={true} suppressContentEditableWarning={true}>10</td>
-                                    <td contentEditable={true} suppressContentEditableWarning={true}>10</td>
+                                    <td contentEditable={true} suppressContentEditableWarning={true}>{this.state.apositive}</td>
+                                    <td contentEditable={true} suppressContentEditableWarning={true}>{this.state.anegative}</td>
+                                    <td contentEditable={true} suppressContentEditableWarning={true}>{this.state.bpositive}</td>
+                                    <td contentEditable={true} suppressContentEditableWarning={true}>{this.state.apositive}</td>
+                                    <td contentEditable={true} suppressContentEditableWarning={true}>{this.state.apositive}</td>
+                                    <td contentEditable={true} suppressContentEditableWarning={true}>{this.state.apositive}</td>
+                                    <td contentEditable={true} suppressContentEditableWarning={true}>{this.state.apositive}</td>
+                                    <td contentEditable={true} suppressContentEditableWarning={true}>{this.state.apositive}</td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -117,9 +99,9 @@ class StockUpdate extends Component {
 
                             </div>
                             <div className="col m-4">
-                                <Link to="/bank/bloodStock">
-                                    <Button variant="success" type="submit" >Save </Button>
-                                </Link>
+                                
+                                    <Button variant="success"  onClick={this.updateHandler}>Save </Button>
+                                
                             </div>
                             <div className="col ">
 

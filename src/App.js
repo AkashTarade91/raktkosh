@@ -31,7 +31,7 @@ import {RowSelection} from './components/admin/table/RowSelection'
 import { RowSel } from './components/admin/table/RowSel';
 import AdminLogin from './components/admin/AdminLogin';
 import ToastDemo from './components/ToastDemo';
-import StockUpdate from './components/StockUpdate';
+import StockUpdate from './components/bank/StockUpdate';
 class App extends Component {
   
 
@@ -77,7 +77,7 @@ class App extends Component {
         <Route path='/toastDemo' element={<ToastDemo info="Hello... KING_SH@RK"/>}></Route>
         <Route path='/admin/adminHome' element={<AdminHome/>}></Route>
 
-        <Route path='/stockUpdate' element={<StockUpdate/>}></Route>
+        <Route path='/bank/updateStock' element={<StockUpdate/>}></Route>
       </Routes>
       </BrowserRouter>
       

@@ -24,7 +24,18 @@ class AdminHome extends Component {
     
 
     componentDidMount() {
-        console.log(window.localStorage.getItem("loginUserEmail"))
+        //console.log(window.localStorage.getItem("loginUserEmail"))
+        // const email=window.localStorage.getItem("loginUserEmail")
+
+        // const role=window.localStorage.getItem("loginUserRole")
+        const email=sessionStorage.getItem("loginUserEmail")
+        const role=sessionStorage.getItem("loginUserRole")
+        console.log(email+""+role)
+        if(role!=='ADMIN'){
+                this.setState({
+                    redirect: "/" 
+                })
+            }
         commonService.getSessionUser()
                 .then((response) => {
                     console.log("componentDidMount");
@@ -238,7 +249,7 @@ class AdminHome extends Component {
                 
         if (this.state.redirect) {
             return  <Navigate to={this.state.redirect} />
-        }
+        } 
 
         return (
             

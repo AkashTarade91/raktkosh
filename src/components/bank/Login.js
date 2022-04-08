@@ -193,15 +193,19 @@ class Login extends Component {
                 if(response.data.role==='BANK'){
                     toast.success("Welcome Bank");
                     this.setState({ redirect: "/bank/bankHome" });
-                    window.localStorage.setItem("loginUserEmail",response.data.email)
-                    window.localStorage.setItem("loginUserRole",response.data.role)
+                    sessionStorage.setItem("loginUserEmail",response.data.email)
+                    sessionStorage.setItem("loginUserRole",response.data.role)
+                    // window.localStorage.setItem("loginUserEmail",response.data.email)
+                    // window.localStorage.setItem("loginUserRole",response.data.role)
                 }
                 else if(response.data.role==='ADMIN'){
                     toast.success("Welcome ADMIN");
                     
                     this.setState({ redirect: "/admin/adminHome" });
-                    window.localStorage.setItem("loginUserEmail",response.data.email)
-                    window.localStorage.setItem("loginUserRole",response.data.role)
+                    sessionStorage.setItem("loginUserEmail",response.data.email)
+                    sessionStorage.setItem("loginUserRole",response.data.role)
+                    // window.localStorage.setItem("loginUserEmail",response.data.email)
+                    // window.localStorage.setItem("loginUserRole",response.data.role)
                 }
                 else{
                   toast.error("Login Failed ... Try Again");
