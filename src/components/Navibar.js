@@ -20,22 +20,18 @@ export const Navibar = () => {
 
                      </NavDropdown>
                      <NavDropdown title="Want to Donate" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/bank/CampSchedule">Blood Donation Camps</NavDropdown.Item>
-                        <NavDropdown.Divider />
+
                         <NavDropdown.Item href="/donor/donorAppointment">Appointment for Blood Bank</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="/donor/login">Donor Login</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="/faq">RaktKosh FAQ</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="/about">About Blood Donation</NavDropdown.Item>
                      </NavDropdown>
 
-                     <NavDropdown title="Blood Bank Login" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/bank/login">Raktkosh Login</NavDropdown.Item>
-                        <NavDropdown.Divider />
+                     <NavDropdown title="Blood Bank" id="basic-nav-dropdown">
                         <NavDropdown.Item href="/bank/register">Add Your Bloodbank</NavDropdown.Item>
-
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item href="/bank/CampSchedule">Blood Donation Camps</NavDropdown.Item>
                      </NavDropdown>
                   </Nav>
                   <Nav className="mr-auto">

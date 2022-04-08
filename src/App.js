@@ -22,7 +22,7 @@ import AdminHome from './components/admin/AdminHome';
 import { BrowserRouter } from 'react-router-dom';
 import { FAQ } from './components/FAQ';
 import React, { Component } from 'react'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 import {BasicTable} from './components/admin/table/BasicTable'
 import {SortingTable} from './components/admin/table/SortingTable'
 import {FilteringTable} from './components/admin/table/FilteringTable'
@@ -31,6 +31,7 @@ import {RowSelection} from './components/admin/table/RowSelection'
 import { RowSel } from './components/admin/table/RowSel';
 import AdminLogin from './components/admin/AdminLogin';
 import ToastDemo from './components/ToastDemo';
+import StockUpdate from './components/StockUpdate';
 class App extends Component {
   
 
@@ -74,6 +75,9 @@ class App extends Component {
         
 
         <Route path='/toastDemo' element={<ToastDemo info="Hello... KING_SH@RK"/>}></Route>
+        <Route path='/admin/adminHome' element={<AdminHome/>}></Route>
+
+        <Route path='/stockUpdate' element={<StockUpdate/>}></Route>
       </Routes>
       </BrowserRouter>
       
