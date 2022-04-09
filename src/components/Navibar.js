@@ -38,9 +38,7 @@ export const Navibar = () => {
                      <NavDropdown title="Login" id="basic-nav-dropdown">
                         <NavDropdown.Item href="/donor/login">Donor</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="/bank/login">Blood Bank</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="/admin/AdminLogin">Admin</NavDropdown.Item>
+                        <NavDropdown.Item href="/login">Blood Bank/Admin</NavDropdown.Item>
                         <NavDropdown.Divider />
                      </NavDropdown>
                   </Nav>
