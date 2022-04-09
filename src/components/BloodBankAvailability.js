@@ -79,7 +79,7 @@ class BloodBankAvailability extends Component {
       flag=false;
     }
     else{
-      if(stateId>=0){
+      if(stateId>0){
           //axios.get('http://localhost:8080/commondata/districts/'+stateId)
           commonService.getAllDistrictsByStateId(stateId)
           .then(response=>{
@@ -91,13 +91,6 @@ class BloodBankAvailability extends Component {
           .catch(error=>{
               console.log(error);
           })
-      }
-      else if(stateId=== "-2"){
-
-      }
-      else{
-        newErrors.stateId = ' Cannot be blank!'
-        flag=false;
       }
     }
     
@@ -132,8 +125,15 @@ class BloodBankAvailability extends Component {
     const districtId=e.target.value;
     let flag=true;
     if ( districtId === '' ) {
-      newErrors.districtId = ' Cannot be blank!'
-      flag=false;
+      if(districtId=== "-2"){
+
+      }
+      else{
+        newErrors.districtId = ' Cannot be blank!'
+        flag=false;
+
+      }
+      
     }
     else{
       if(districtId>=0){
@@ -266,7 +266,7 @@ class BloodBankAvailability extends Component {
       event.preventDefault();
       
       const  {  cityId, stateId, districtId} = this.state;
-      console.log(cityId);
+      console.log(stateId, districtId, cityId);
       
         if(stateId==='-2'){
           bankService.getAllAcceptedBank()
@@ -283,7 +283,8 @@ class BloodBankAvailability extends Component {
         }
         else{
           if(districtId==='-2'){
-            bankService.getAllAcceptedStateBank(stateId)
+            console.log("districtId==='-2'");
+            bankService.getAllAcceptedBankByState(stateId)
             .then((response) => {
                 console.log("componentDidMount");
                 console.log(response.data);

@@ -49,17 +49,30 @@ class BankHome extends Component {
             city:response.data.bank.city
 
             })
+            sessionStorage.setItem("apositive",response.data.apositive)
+            sessionStorage.setItem("anegative",response.data.anegative)
+            sessionStorage.setItem("bpositive",response.data.bpositive)
+            sessionStorage.setItem("bnegative",response.data.bnegative)
+            sessionStorage.setItem("abPositive",response.data.abPositive)
+            sessionStorage.setItem("abNegative",response.data.abNegative)
+            sessionStorage.setItem("opositive",response.data.opositive)
+            sessionStorage.setItem("onegative",response.data.onegative)
         })
         .catch((error) => {
             console.log(error);
         });
         console.log("out");
+        const {data, apositive}=this.state;
+        console.log(data);
+        console.log("update");
+        sessionStorage.setItem("apositive",apositive)
     }
 
     updateHandler=()=>{
         const {data}=this.state;
+        console.log(data);
         console.log("update");
-        //sessionStorage.setItem("apositive",data.apositive)
+        sessionStorage.setItem("apositive",data.apositive)
         sessionStorage.setItem("anegative",data.anegative)
         sessionStorage.setItem("bpositive",data.bpositive)
         sessionStorage.setItem("bnegative",data.bnegative)
@@ -162,11 +175,14 @@ class BankHome extends Component {
                     <div className="row">
                         <div className="col-md-3"></div>
                         <div className="col m-4">
-                            <Button variant="btn btn-outline-primary" 
+                        <Link to="/bank/bloodStock">
+                        <   Button  variant="btn btn-outline-primary">Update Bank Stock Details{" "}</Button>
+                        </Link>
+                            {/* <Button variant="btn btn-outline-primary" 
                             onClick={this.updateHandler}>
                                 Update Bank Stock Details{" "}
 
-                            </Button>
+                            </Button> */}
                         </div>
                         <div className="col m-4">
                             <Button variant="btn btn-outline-success" type="submit">
